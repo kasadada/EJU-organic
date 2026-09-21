@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>有機分子名称 特訓道場</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Microsoft YaHei",sans-serif;
+  background:#eef2ff;
+  background-image:
+    radial-gradient(at 0% 0%, #dbeafe 0px, transparent 55%),
+    radial-gradient(at 100% 0%, #fce7f3 0px, transparent 55%),
+    radial-gradient(at 50% 100%, #d1fae5 0px, transparent 55%);
+  background-attachment:fixed;
+  min-height:100vh;color:#1e293b;padding:22px 14px 60px;
+  -webkit-font-smoothing:antialiased;
+}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:999;display:none;}
+.wrap{max-width:880px;margin:0 auto;}
+.view{display:none;}
+.view.active{display:block;animation:pop .42s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.985);}to{opacity:1;transform:none;}}
+
+.hero{text-align:center;margin-bottom:24px;}
+.hero .icon{
+  width:84px;height:84px;margin:0 auto 16px;border-radius:26px;
+  background:linear-gradient(135deg,#6366f1,#a855f7,#ec4899);
+  display:flex;align-items:center;justify-content:center;font-size:42px;
+  box-shadow:0 16px 40px rgba(139,92,246,.42);
+  animation:float 3.6s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-10px) rotate(2deg);}}
+.hero h1{font-size:27px;font-weight:900;letter-spacing:.5px;margin-bottom:8px;}
+.hero p{font-size:14px;color:#64748b;line-height:1.75;}
+
+.panel{background:#fff;border-radius:28px;padding:30px 26px;box-shadow:0 18px 55px rgba(79,70,229,.14);}
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.statbox{background:#f8faff;border-radius:18px;padding:16px 8px;text-align:center;border:1.5px solid #eef2ff;}
+.statbox b{font-size:24px;font-weight:900;color:#6366f1;display:block;line-height:1.15;}
+.statbox small{font-size:11px;color:#94a3b8;letter-spacing:.5px;}
+
+.btn{
+  width:100%;padding:17px;border:none;border-radius:18px;
+  font-size:17px;font-weight:900;font-family:inherit;letter-spacing:.6px;
+  cursor:pointer;transition:.2s;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;
+  box-shadow:0 10px 28px rgba(99,102,241,.38);
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(99,102,241,.48);}
+.btn:active{transform:translateY(0);}
+
+.btn-outline{
+  width:100%;padding:16px;border:2px solid #c7d2fe;border-radius:18px;
+  font-size:16px;font-weight:900;font-family:inherit;letter-spacing:.6px;
+  cursor:pointer;transition:.2s;background:#fff;color:#4f46e5;
+  margin-top:12px;
+}
+.btn-outline:hover{background:#f5f3ff;border-color:#a5b4fc;transform:translateY(-2px);}
+
+.tips{margin-top:22px;font-size:13px;color:#94a3b8;line-height:1.9;text-align:center;}
+.tips b{color:#6366f1;}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+.topbar .left{display:flex;align-items:center;gap:12px;}
+.backbtn{
+  width:42px;height:42px;border-radius:14px;border:1.5px solid #e0e7ff;
+  background:#fff;color:#6366f1;font-size:18px;cursor:pointer;transition:.18s;
+  display:flex;align-items:center;justify-content:center;font-family:inherit;
+}
+.backbtn:hover{background:#f1f5ff;transform:translateX(-2px);}
+.qmeta{font-size:15px;font-weight:800;color:#334155;}
+.qmeta small{display:block;font-size:11.5px;color:#94a3b8;font-weight:600;margin-top:2px;}
+.scorechip{background:#fff;border-radius:15px;padding:8px 20px;text-align:center;box-shadow:0 6px 20px rgba(99,102,241,.13);}
+.scorechip b{font-size:20px;color:#6366f1;line-height:1.1;display:block;}
+.scorechip small{font-size:10px;color:#94a3b8;letter-spacing:1px;}
+
+.progresswrap{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.progress{flex:1;height:10px;border-radius:99px;background:#fff;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.06);}
+#bar{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,#6366f1,#a855f7,#ec4899);transition:width .45s cubic-bezier(.4,0,.2,1);}
+#pct{font-size:12px;font-weight:800;color:#818cf8;min-width:42px;text-align:right;}
+
+.card{background:#fff;border-radius:28px;padding:30px 26px 26px;box-shadow:0 18px 55px rgba(79,70,229,.14);}
+
+.qtag{
+  display:inline-block;font-size:12px;font-weight:800;padding:5px 14px;
+  border-radius:99px;letter-spacing:.5px;margin-bottom:16px;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;
+  box-shadow:0 4px 12px rgba(99,102,241,.3);
+}
+.qtag.pick{background:linear-gradient(135deg,#0ea5e9,#06b6d4);box-shadow:0 4px 12px rgba(14,165,233,.3);}
+
+.prompt{font-size:15px;font-weight:800;color:#64748b;margin-bottom:14px;letter-spacing:.3px;}
+
+.structbox{
+  background:linear-gradient(135deg,#f8faff,#f1f5ff);
+  border-radius:22px;padding:22px 16px;margin-bottom:22px;
+  display:flex;align-items:center;justify-content:center;
+  min-height:150px;border:2px solid #eef2ff;
+}
+.struct-svg{width:100%;max-width:320px;height:auto;display:block;}
+
+.options{display:flex;flex-direction:column;gap:11px;}
+.options.grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+
+.opt{
+  display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+  padding:15px 18px;border-radius:17px;border:2px solid #edf0fa;
+  background:#fafbff;color:#1e293b;font-size:16px;line-height:1.65;
+  font-family:inherit;font-weight:700;cursor:pointer;
+  transition:.18s cubic-bezier(.4,0,.2,1);
+}
+.opt .num{
+  flex:none;width:28px;height:28px;border-radius:50%;
+  background:#eef2ff;color:#6366f1;font-size:13px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;transition:.18s;
+}
+.opt:not(:disabled):hover{border-color:#a5b4fc;background:#fff;transform:translateY(-2px);box-shadow:0 10px 26px rgba(99,102,241,.17);}
+.opt:not(:disabled):hover .num{background:#6366f1;color:#fff;}
+.opt:disabled{cursor:default;}
+.opt.correct{border-color:#34d399;background:linear-gradient(135deg,#ecfdf5,#d1fae5);box-shadow:0 8px 22px rgba(16,185,129,.22);}
+.opt.correct .num{background:#10b981;color:#fff;}
+.opt.wrong{border-color:#f87171;background:linear-gradient(135deg,#fef2f2,#fee2e2);animation:shake .42s;}
+.opt.wrong .num{background:#ef4444;color:#fff;}
+.opt.dim{opacity:.45;}
+@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-7px);}40%{transform:translateX(7px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);}}
+
+.sopt{
+  background:#fafbff;border:2px solid #edf0fa;border-radius:20px;
+  padding:20px 14px;cursor:pointer;transition:.18s;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  position:relative;min-height:200px;justify-content:center;
+}
+.sopt:not(:disabled):hover{border-color:#a5b4fc;background:#fff;transform:translateY(-3px);box-shadow:0 10px 26px rgba(99,102,241,.18);}
+.sopt:disabled{cursor:default;}
+.sopt .snum{
+  position:absolute;top:10px;left:12px;width:26px;height:26px;border-radius:50%;
+  background:#eef2ff;color:#6366f1;font-size:13px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+}
+.sopt.correct{border-color:#34d399;background:linear-gradient(135deg,#ecfdf5,#d1fae5);box-shadow:0 8px 22px rgba(16,185,129,.22);}
+.sopt.correct .snum{background:#10b981;color:#fff;}
+.sopt.wrong{border-color:#f87171;background:linear-gradient(135deg,#fef2f2,#fee2e2);animation:shake .42s;}
+.sopt.wrong .snum{background:#ef4444;color:#fff;}
+.sopt.dim{opacity:.42;}
+.sopt .struct-svg{max-width:100%;width:100%;max-height:150px;height:auto;}
+
+.feedback{margin-top:20px;padding:20px;border-radius:20px;animation:pop .36s cubic-bezier(.34,1.56,.64,1);}
+.feedback.ok{background:linear-gradient(135deg,#ecfdf5,#f0fdf4);border:1.5px solid #a7f3d0;}
+.feedback.no{background:linear-gradient(135deg,#fff7ed,#fef2f2);border:1.5px solid #fed7aa;}
+.fb-title{font-size:17px;font-weight:900;margin-bottom:10px;}
+.feedback.ok .fb-title{color:#059669;}
+.feedback.no .fb-title{color:#ea580c;}
+.fb-body{font-size:14.5px;line-height:1.95;color:#334155;}
+.fb-body b{color:#4f46e5;}
+.fb-body .row{display:flex;gap:8px;margin-top:6px;align-items:flex-start;}
+.fb-body .lbl{flex:none;font-weight:900;color:#64748b;font-size:13px;}
+.nextbtn{
+  margin-top:16px;width:100%;padding:16px;border:none;border-radius:17px;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;
+  font-size:16px;font-weight:900;font-family:inherit;letter-spacing:.5px;
+  cursor:pointer;transition:.2s;box-shadow:0 8px 24px rgba(99,102,241,.36);
+}
+.nextbtn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(99,102,241,.46);}
+
+.result{text-align:center;padding:14px 4px;}
+.result .emoji{font-size:74px;line-height:1;margin-bottom:10px;animation:bounce .95s;}
+@keyframes bounce{0%{transform:scale(.25) rotate(-20deg);opacity:0;}60%{transform:scale(1.18) rotate(6deg);}100%{transform:scale(1) rotate(0);opacity:1;}}
+.result h2{font-size:26px;font-weight:900;margin-bottom:6px;}
+.title-badge{
+  display:inline-block;margin:12px 0 18px;padding:10px 26px;border-radius:99px;
+  font-size:17px;font-weight:900;letter-spacing:1px;
+  background:linear-gradient(135deg,#fbbf24,#f59e0b,#ec4899);
+  color:#fff;box-shadow:0 10px 28px rgba(245,158,11,.42);
+  animation:glow 1.8s ease-in-out infinite;
+}
+@keyframes glow{0%,100%{box-shadow:0 10px 28px rgba(245,158,11,.42);}50%{box-shadow:0 14px 40px rgba(236,72,153,.55);}}
+.result .sub{color:#64748b;font-size:14px;margin-bottom:20px;line-height:1.8;}
+.ring{position:relative;width:180px;height:180px;margin:0 auto 18px;}
+.ring svg{transform:rotate(-90deg);}
+.ring .inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.bignum{
+  font-size:56px;font-weight:900;line-height:1.05;
+  background:linear-gradient(135deg,#6366f1,#ec4899);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.bignum small{font-size:22px;color:#94a3b8;-webkit-text-fill-color:#94a3b8;}
+
+.review{margin-top:24px;text-align:left;background:#f8faff;border-radius:20px;padding:20px;}
+.review h3{font-size:14px;color:#64748b;margin-bottom:14px;letter-spacing:.5px;font-weight:900;}
+.review .item{
+  display:flex;gap:11px;font-size:14px;padding:11px 0;
+  border-bottom:1px dashed #e2e8f0;line-height:1.7;align-items:flex-start;
+}
+.review .item:last-child{border-bottom:none;}
+.review .tag{flex:none;background:#eef2ff;color:#6366f1;font-weight:900;font-size:12px;padding:3px 10px;border-radius:8px;}
+.again{
+  margin-top:22px;padding:16px 46px;border:none;border-radius:17px;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;
+  font-size:16px;font-weight:900;font-family:inherit;cursor:pointer;
+  box-shadow:0 10px 28px rgba(99,102,241,.36);transition:.2s;
+}
+.again:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(99,102,241,.46);}
+
+/* 浏览模式 */
+.browse-section{margin-bottom:32px;}
+.browse-section h3{
+  font-size:14px;font-weight:900;color:#4f46e5;letter-spacing:.8px;
+  margin-bottom:14px;padding-bottom:8px;
+  border-bottom:2px solid #e0e7ff;
+  display:flex;align-items:center;gap:8px;
+}
+.browse-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.browse-card{
+  background:#f8faff;border:1.5px solid #eef2ff;border-radius:16px;
+  padding:14px 12px;display:flex;flex-direction:column;align-items:center;gap:8px;
+  transition:.18s;
+}
+.browse-card:hover{border-color:#c7d2fe;background:#fff;box-shadow:0 6px 20px rgba(99,102,241,.1);}
+.browse-card .b-svg{
+  width:100%;display:flex;align-items:center;justify-content:center;
+  min-height:100px;
+}
+.browse-card .b-svg .struct-svg{max-width:100%;max-height:130px;}
+.browse-card .b-jp{
+  font-size:13.5px;font-weight:900;color:#1e293b;text-align:center;
+  line-height:1.4;word-break:break-word;
+}
+.browse-card .b-cn{
+  font-size:11.5px;color:#94a3b8;text-align:center;font-weight:600;
+}
+.browse-actions{position:sticky;bottom:16px;margin-top:28px;z-index:10;}
+
+@media (max-width:640px){
+  body{padding:14px 10px 44px;}
+  .card{padding:24px 16px 22px;border-radius:22px;}
+  .panel{padding:24px 18px;border-radius:22px;}
+  .options.grid4{grid-template-columns:repeat(1,1fr);}
+  .browse-grid{grid-template-columns:repeat(1,1fr);}
+  .hero h1{font-size:23px;}
+  .statgrid{gap:8px;}
+  .statbox b{font-size:20px;}
+}
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+<div class="wrap">
+
+  <section id="v-start" class="view active">
+    <div class="hero">
+      <div class="icon">🧬</div>
+      <h1>有機分子名称 特訓道場</h1>
+      <p>構造式 ↔ 名称 を 10 問でチェック<br>7 点以上で特別称号ゲット！</p>
+    </div>
+
+    <div class="panel">
+      <div class="statgrid">
+        <div class="statbox"><b id="dbCount">0</b><small>収録分子</small></div>
+        <div class="statbox"><b>10</b><small>出題数</small></div>
+        <div class="statbox"><b>7</b><small>合格ライン</small></div>
+      </div>
+      <button class="btn" id="startBtn">▶ 特訓スタート</button>
+      <button class="btn-outline" id="browseBtn">📖 まずは構造式と名前を確認する</button>
+      <p class="tips">
+        出題形式：<b>構造 → 名称（選択）</b> / <b>名称 → 構造（8択）</b>
+      </p>
+    </div>
+  </section>
+
+  <section id="v-browse" class="view">
+    <div class="topbar">
+      <div class="left">
+        <button class="backbtn" id="browseBackBtn">←</button>
+        <div class="qmeta">📖 分子カタログ<small id="browseCount">全 0 分子</small></div>
+      </div>
+    </div>
+    <div class="card" id="browseCard"></div>
+  </section>
+
+  <section id="v-quiz" class="view">
+    <div class="topbar">
+      <div class="left">
+        <button class="backbtn" id="backBtn">←</button>
+        <div class="qmeta" id="qMeta">第 1 問<small>全 10 問</small></div>
+      </div>
+      <div class="scorechip"><b id="scoreNum">0</b><small>SCORE</small></div>
+    </div>
+
+    <div class="progresswrap">
+      <div class="progress"><div id="bar"></div></div>
+      <span id="pct">0%</span>
+    </div>
+
+    <div class="card" id="quizCard"></div>
+  </section>
+
+  <section id="v-result" class="view">
+    <div class="card" id="resultCard"></div>
+  </section>
+
+</div>
+
+<script>
+/* =====================================================================
+   工具
+   ===================================================================== */
+function svgLine(x1, y1, x2, y2, w = 2.4){
+  return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#1e293b" stroke-width="${w}" stroke-linecap="round"/>`;
+}
+
+/* 双键：垂直于键轴偏移（用于链状分子） */
+function svgDbl(x1, y1, x2, y2, off = 4.5, w = 2.4){
+  const len = Math.hypot(x2 - x1, y2 - y1) || 1;
+  const px = -(y2 - y1) / len * off;
+  const py =  (x2 - x1) / len * off;
+  return svgLine(x1, y1, x2, y2, w) +
+         svgLine(x1 + px, y1 + py, x2 + px, y2 + py, w);
+}
+
+/* 双键：朝指定点 (cx,cy) 方向偏移（用于苯环，让双键在环内侧） */
+function svgDblTo(x1, y1, x2, y2, cx, cy, off = 4.5, w = 2.4){
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+  const dx = cx - mx, dy = cy - my;
+  const len = Math.hypot(dx, dy) || 1;
+  const px = dx / len * off, py = dy / len * off;
+  return svgLine(x1, y1, x2, y2, w) +
+         svgLine(x1 + px, y1 + py, x2 + px, y2 + py, w);
+}
+
+/* 三键 */
+function svgTpl(x1, y1, x2, y2, off = 4, w = 2.2){
+  const len = Math.hypot(x2 - x1, y2 - y1) || 1;
+  const px = -(y2 - y1) / len * off;
+  const py =  (x2 - x1) / len * off;
+  return svgLine(x1, y1, x2, y2, w) +
+         svgLine(x1 + px, y1 + py, x2 + px, y2 + py, w) +
+         svgLine(x1 - px, y1 - py, x2 - px, y2 - py, w);
+}
+
+function svgTxt(x, y, text, opts = {}){
+  const { anchor = 'middle', size = 15, weight = 800 } = opts;
+  return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle" font-size="${size}" font-weight="${weight}" fill="#1e293b" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif">${text}</text>`;
+}
+
+function svgWrap(inner, w = 300, h = 180){
+  return `<svg viewBox="0 0 ${w} ${h}" class="struct-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">${inner}</svg>`;
+}
+
+/* 旋转向量（角度制） */
+function rot(vx, vy, angleDeg){
+  const a = angleDeg * Math.PI / 180;
+  const c = Math.cos(a), s = Math.sin(a);
+  return [vx * c - vy * s, vx * s + vy * c];
+}
+
+/* =====================================================================
+   纯文本结构式
+   ===================================================================== */
+function textFormula(str){
+  const len = str.length;
+  let fs = 22;
+  if (len > 12) fs = 18;
+  if (len > 18) fs = 15;
+  if (len > 26) fs = 12;
+  if (len > 34) fs = 10;
+  return svgWrap(svgTxt(150, 90, str, { size: fs }));
+}
+
+/* =====================================================================
+   锯齿形链状骨架（★ 修正三键为直线 sp）
+   ===================================================================== */
+function zigzag(n, opts = {}){
+  const { doubleBond = -1, tripleBond = -1, subs = {}, endLabels = true } = opts;
+  const bl = 28;
+
+  const hasTriple = tripleBond >= 0;
+
+  /* 计算每个键的方向角度 */
+  const dirs = [];
+  for (let i = 0; i < n - 1; i++){
+    if (i === 0){
+      dirs[i] = hasTriple ? 0 : -30;
+    } else if (i === tripleBond || i - 1 === tripleBond){
+      dirs[i] = dirs[i - 1];        /* 三键共线 → 直线 */
+    } else {
+      dirs[i] = dirs[i - 1] === -30 ? 30 : -30;
+    }
+  }
+
+  /* 计算位置 */
+  const pts = [[0, 0]];
+  for (let i = 0; i < n - 1; i++){
+    const a = dirs[i] * Math.PI / 180;
+    pts.push([pts[i][0] + bl * Math.cos(a), pts[i][1] + bl * Math.sin(a)]);
+  }
+
+  /* 居中 */
+  const xs = pts.map(p => p[0]);
+  const ys = pts.map(p => p[1]);
+  const cx = (Math.min(...xs) + Math.max(...xs)) / 2;
+  const cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+  const ox = 150 - cx, oy = 90 - cy;
+  for (const p of pts){ p[0] += ox; p[1] += oy; }
+
+  /* 绘制主链键 */
+  let s = '';
+  for (let i = 0; i < n - 1; i++){
+    const [x1, y1] = pts[i], [x2, y2] = pts[i + 1];
+    if (i === tripleBond)      s += svgTpl(x1, y1, x2, y2);
+    else if (i === doubleBond) s += svgDbl(x1, y1, x2, y2);
+    else                       s += svgLine(x1, y1, x2, y2);
+  }
+
+  /* 端点 CH₃ */
+  if (endLabels && n >= 2 && subs[0] === undefined){
+    const [x0, y0] = pts[0], [x1, y1] = pts[1];
+    const ddx = x0 - x1, ddy = y0 - y1;
+    const dl = Math.hypot(ddx, ddy) || 1;
+    s += svgTxt(x0 + ddx / dl * 16, y0 + ddy / dl * 16, 'CH₃');
+  }
+  if (endLabels && n >= 2 && subs[n - 1] === undefined){
+    const [xn, yn] = pts[n - 1], [xp, yp] = pts[n - 2];
+    const ddx = xn - xp, ddy = yn - yp;
+    const dl = Math.hypot(ddx, ddy) || 1;
+    s += svgTxt(xn + ddx / dl * 16, yn + ddy / dl * 16, 'CH₃');
+  }
+
+  /* 取代基 */
+  for (const [idx, info] of Object.entries(subs)){
+    const i = parseInt(idx);
+    const [x, y] = pts[i];
+    let vx = 0, vy = -1;
+    const dir = info.dir || 'up';
+    if (dir === 'up')             { vx =  0;   vy = -1;   }
+    else if (dir === 'down')      { vx =  0;   vy =  1;   }
+    else if (dir === 'upleft')    { vx = -0.7; vy = -0.7; }
+    else if (dir === 'upright')   { vx =  0.7; vy = -0.7; }
+    else if (dir === 'downleft')  { vx = -0.7; vy =  0.7; }
+    else if (dir === 'downright') { vx =  0.7; vy =  0.7; }
+    else if (dir === 'left')      { vx = -1;   vy =  0;   }
+    else if (dir === 'right')     { vx =  1;   vy =  0;   }
+    const ex = x + vx * 18, ey = y + vy * 18;
+    s += svgLine(x, y, ex, ey);
+    const tx = ex + vx * 8, ty = ey + vy * 8;
+    const anchor = vx > 0.3 ? 'start' : vx < -0.3 ? 'end' : 'middle';
+    s += svgTxt(tx, ty, info.text, { anchor });
+  }
+
+  return svgWrap(s);
+}
+
+/* =====================================================================
+   环烷烃
+   ===================================================================== */
+function cycloRing(n){
+  const cx = 150, cy = 90, r = 42;
+  const pts = [];
+  for (let i = 0; i < n; i++){
+    const a = -Math.PI / 2 + i * 2 * Math.PI / n;
+    pts.push([cx + r * Math.cos(a), cy + r * Math.sin(a)]);
+  }
+  let s = '';
+  for (let i = 0; i < n; i++){
+    const [x1, y1] = pts[i], [x2, y2] = pts[(i + 1) % n];
+    s += svgLine(x1, y1, x2, y2);
+  }
+  return svgWrap(s);
+}
+
+/* =====================================================================
+   ★ 苯环（凯库勒式，双键在环内侧）
+   ===================================================================== */
+function benzene(subs = {}){
+  const cx = 150, cy = 95, r = 40;
+  const s3 = Math.sqrt(3);
+  const V = [
+    [cx + r,               cy                  ],
+    [cx + r / 2,           cy - r * s3 / 2     ],
+    [cx - r / 2,           cy - r * s3 / 2     ],
+    [cx - r,               cy                  ],
+    [cx - r / 2,           cy + r * s3 / 2     ],
+    [cx + r / 2,           cy + r * s3 / 2     ]
+  ];
+  const bonds = [[0,1,2],[1,2,1],[2,3,2],[3,4,1],[4,5,2],[5,0,1]];
+  let s = '';
+  for (const [a, b, ord] of bonds){
+    const [x1, y1] = V[a], [x2, y2] = V[b];
+    if (ord === 2) s += svgDblTo(x1, y1, x2, y2, cx, cy, 4.5);
+    else           s += svgLine(x1, y1, x2, y2);
+  }
+
+  const posMap = { R: 0, TR: 1, TL: 2, L: 3, BL: 4, BR: 5 };
+  const carbonylTypes = ['COOH','COOCH₃','COOC₂H₅','OCOCH₃','CHO','COCH₃'];
+
+  for (const [k, subText] of Object.entries(subs)){
+    if (!subText) continue;
+    const idx = posMap[k];
+    if (idx === undefined) continue;
+    const [vx0, vy0] = V[idx];
+    const dx = (vx0 - cx) / r, dy = (vy0 - cy) / r;
+
+    if (carbonylTypes.includes(subText)){
+      s += drawCarbonylSubst(vx0, vy0, dx, dy, subText);
+      continue;
+    }
+
+    const ex = vx0 + dx * 22, ey = vy0 + dy * 22;
+    s += svgLine(vx0, vy0, ex, ey);
+    const tx = ex + dx * 10, ty = ey + dy * 10;
+    const anchor = dx > 0.3 ? 'start' : dx < -0.3 ? 'end' : 'middle';
+    s += svgTxt(tx, ty, subText, { anchor });
+  }
+  return svgWrap(s);
+}
+
+/* =====================================================================
+   ★ 苯环上的羰基类取代基（sp² 120° 骨架式）
+   ===================================================================== */
+function drawCarbonylSubst(x, y, dx, dy, type){
+  let s = '';
+
+  if (type === 'OCOCH₃'){
+    /* 环-O-C(=O)-CH₃ */
+    const O1x = x + dx * 18, O1y = y + dy * 18;
+    s += svgLine(x, y, O1x, O1y);
+    s += svgTxt(O1x + dx * 10, O1y + dy * 10, 'O', { size: 15 });
+
+    const [odx, ody] = rot(dx, dy, 60);
+    const Cx = O1x + odx * 20, Cy = O1y + ody * 20;
+    s += svgLine(O1x, O1y, Cx, Cy);
+
+    /* C=O 双键 */
+    const [d1x, d1y] = rot(odx, ody, 60);
+    const O2x = Cx + d1x * 20, O2y = Cy + d1y * 20;
+    s += svgLine(Cx, Cy, O2x, O2y, 2.4);
+    s += svgLine(Cx + odx * 2, Cy + ody * 2, O2x + odx * 2, O2y + ody * 2, 1.8);
+    s += svgTxt(O2x + d1x * 10, O2y + d1y * 10, 'O', { size: 15 });
+
+    /* C-CH₃ */
+    const [d2x, d2y] = rot(odx, ody, -60);
+    const C2x = Cx + d2x * 20, C2y = Cy + d2y * 20;
+    s += svgLine(Cx, Cy, C2x, C2y);
+    s += svgTxt(C2x + d2x * 12, C2y + d2y * 12, 'CH₃', { size: 13 });
+    return s;
+  }
+
+  /* 环-C(=O)-R 模式 */
+  const Cx = x + dx * 18, Cy = y + dy * 18;
+  s += svgLine(x, y, Cx, Cy);
+
+  /* C=O 双键：相对取代基方向旋转 -60°（右上） */
+  const [o1x, o1y] = rot(dx, dy, -60);
+  const Ox = Cx + o1x * 22, Oy = Cy + o1y * 22;
+  s += svgLine(Cx, Cy, Ox, Oy, 2.4);
+  s += svgLine(Cx + dx * 2.5, Cy + dy * 2.5, Ox + dx * 2.5, Oy + dy * 2.5, 1.8);
+  s += svgTxt(Ox + o1x * 10, Oy + o1y * 10, 'O', { size: 15 });
+
+  /* 另一个取代基：旋转 +60° */
+  const [o2x, o2y] = rot(dx, dy, 60);
+  const Rx = Cx + o2x * 22, Ry = Cy + o2y * 22;
+
+  if (type === 'COOH'){
+    s += svgLine(Cx, Cy, Rx, Ry);
+    s += svgTxt(Rx + o2x * 12, Ry + o2y * 12, 'OH', { size: 14 });
+  } else if (type === 'CHO'){
+    s += svgLine(Cx, Cy, Rx, Ry);
+    s += svgTxt(Rx + o2x * 12, Ry + o2y * 12, 'H', { size: 15 });
+  } else if (type === 'COCH₃'){
+    s += svgLine(Cx, Cy, Rx, Ry);
+    s += svgTxt(Rx + o2x * 12, Ry + o2y * 12, 'CH₃', { size: 13 });
+  } else if (type === 'COOCH₃' || type === 'COOC₂H₅'){
+    s += svgLine(Cx, Cy, Rx, Ry);
+    s += svgTxt(Rx + o2x * 10, Ry + o2y * 10, 'O', { size: 15 });
+
+    const [o3x, o3y] = rot(o2x, o2y, -60);
+    const R2x = Rx + o3x * 20, R2y = Ry + o3y * 20;
+    s += svgLine(Rx, Ry, R2x, R2y);
+    const label = type === 'COOCH₃' ? 'CH₃' : 'C₂H₅';
+    s += svgTxt(R2x + o3x * 12, R2y + o3y * 12, label, { size: 13 });
+  }
+  return s;
+}
+
+/* =====================================================================
+   ★ 萘环（正确共用垂直边，凯库勒式）
+   ===================================================================== */
+function naphthalene(subs = {}){
+  const cx = 150, cy = 90, r = 24;
+  const s3 = Math.sqrt(3);
+  const rh = r / 2;             /* 共用边半长 */
+  const rw = r * s3 / 2;        /* 中心到共用边距离 */
+
+  /* 左环中心 (cx - rw, cy)，右环中心 (cx + rw, cy) */
+  const ST = [cx, cy - rh];       /* 上共用 */
+  const SB = [cx, cy + rh];       /* 下共用 */
+  const Lt = [cx - rw, cy - r];   /* 左上 */
+  const Llt = [cx - r * s3, cy - rh]; /* 最左-上 */
+  const Llb = [cx - r * s3, cy + rh]; /* 最左-下 */
+  const Lb = [cx - rw, cy + r];   /* 左下 */
+  const Rt = [cx + rw, cy - r];   /* 右上 */
+  const Rrt = [cx + r * s3, cy - rh];
+  const Rrb = [cx + r * s3, cy + rh];
+  const Rb = [cx + rw, cy + r];
+
+  const leftCtr = [cx - rw, cy];
+  const rightCtr = [cx + rw, cy];
+
+  let s = '';
+
+  /* 左环 */
+  s += svgDblTo(ST[0], ST[1], Lt[0], Lt[1], leftCtr[0], leftCtr[1], 4);
+  s += svgLine(Lt[0], Lt[1], Llt[0], Llt[1]);
+  s += svgDblTo(Llt[0], Llt[1], Llb[0], Llb[1], leftCtr[0], leftCtr[1], 4);
+  s += svgLine(Llb[0], Llb[1], Lb[0], Lb[1]);
+  s += svgDblTo(Lb[0], Lb[1], SB[0], SB[1], leftCtr[0], leftCtr[1], 4);
+  s += svgLine(SB[0], SB[1], ST[0], ST[1]);   /* 共用边单键 */
+
+  /* 右环 */
+  s += svgLine(ST[0], ST[1], Rt[0], Rt[1]);
+  s += svgDblTo(Rt[0], Rt[1], Rrt[0], Rrt[1], rightCtr[0], rightCtr[1], 4);
+  s += svgLine(Rrt[0], Rrt[1], Rrb[0], Rrb[1]);
+  s += svgDblTo(Rrb[0], Rrb[1], Rb[0], Rb[1], rightCtr[0], rightCtr[1], 4);
+  s += svgLine(Rb[0], Rb[1], SB[0], SB[1]);
+
+  /* 取代基 */
+  const posMap = {
+    Lt:  { pos: Lt,  center: leftCtr  },   /* 1-萘酚（α） */
+    Llt: { pos: Llt, center: leftCtr  },   /* 2-萘酚（β） */
+    Llb: { pos: Llb, center: leftCtr  },
+    Lb:  { pos: Lb,  center: leftCtr  },
+    Rt:  { pos: Rt,  center: rightCtr },
+    Rrt: { pos: Rrt, center: rightCtr },
+    Rrb: { pos: Rrb, center: rightCtr },
+    Rb:  { pos: Rb,  center: rightCtr }
+  };
+
+  for (const [k, subText] of Object.entries(subs)){
+    if (!subText) continue;
+    const info = posMap[k];
+    if (!info) continue;
+    const [vx0, vy0] = info.pos;
+    const [ccx, ccy] = info.center;
+    let dx = vx0 - ccx, dy = vy0 - ccy;
+    const len = Math.hypot(dx, dy) || 1;
+    dx /= len; dy /= len;
+    const ex = vx0 + dx * 22, ey = vy0 + dy * 22;
+    s += svgLine(vx0, vy0, ex, ey);
+    const tx = ex + dx * 10, ty = ey + dy * 10;
+    const anchor = dx > 0.3 ? 'start' : dx < -0.3 ? 'end' : 'middle';
+    s += svgTxt(tx, ty, subText, { anchor, size: 14 });
+  }
+  return svgWrap(s);
+}
+
+/* =====================================================================
+   特定分子
+   ===================================================================== */
+function isobutane(){
+  const cx = 150, cy = 95, r = 38;
+  let s = '';
+  const targets = [
+    [cx - r * 0.85, cy - r * 0.55],
+    [cx + r * 0.85, cy - r * 0.55],
+    [cx,            cy + r * 0.85]
+  ];
+  for (const [ex, ey] of targets){
+    s += svgLine(cx, cy, ex, ey);
+    const dx = ex - cx, dy = ey - cy;
+    const len = Math.hypot(dx, dy) || 1;
+    const tx = ex + dx / len * 16, ty = ey + dy / len * 16;
+    const anchor = Math.abs(dx) < 0.3 ? 'middle' : (dx > 0 ? 'start' : 'end');
+    s += svgTxt(tx, ty, 'CH₃', { anchor });
+  }
+  return svgWrap(s);
+}
+
+function isobutylene(){
+  const c1x = 115, c2x = 165, cy = 90;
+  let s = svgDbl(c1x, cy, c2x, cy);
+  s += svgLine(c1x, cy, c1x - 28, cy - 20);
+  s += svgLine(c1x, cy, c1x - 28, cy + 20);
+  s += svgTxt(c1x - 38, cy - 26, 'CH₂', { anchor: 'end' });
+  s += svgTxt(c1x - 38, cy + 26, 'H',   { anchor: 'end' });
+  s += svgLine(c2x, cy, c2x + 12, cy - 26);
+  s += svgLine(c2x, cy, c2x + 12, cy + 26);
+  s += svgTxt(c2x + 26, cy - 32, 'CH₃', { anchor: 'start' });
+  s += svgTxt(c2x + 26, cy + 32, 'CH₃', { anchor: 'start' });
+  return svgWrap(s);
+}
+
+function butene2(cis){
+  const c1x = 120, c2x = 170, cy = 90;
+  let s = svgDbl(c1x, cy, c2x, cy);
+  if (cis){
+    s += svgLine(c1x, cy, c1x - 22, cy - 16);
+    s += svgLine(c1x, cy, c1x - 22, cy + 16);
+    s += svgTxt(c1x - 32, cy - 22, 'CH₃', { anchor: 'end' });
+    s += svgTxt(c1x - 32, cy + 22, 'H',   { anchor: 'end' });
+    s += svgLine(c2x, cy, c2x + 22, cy - 16);
+    s += svgLine(c2x, cy, c2x + 22, cy + 16);
+    s += svgTxt(c2x + 30, cy - 22, 'CH₃', { anchor: 'start' });
+    s += svgTxt(c2x + 30, cy + 22, 'H',   { anchor: 'start' });
+  } else {
+    s += svgLine(c1x, cy, c1x - 22, cy - 16);
+    s += svgLine(c1x, cy, c1x - 22, cy + 16);
+    s += svgTxt(c1x - 32, cy - 22, 'CH₃', { anchor: 'end' });
+    s += svgTxt(c1x - 32, cy + 22, 'H',   { anchor: 'end' });
+    s += svgLine(c2x, cy, c2x + 22, cy - 16);
+    s += svgLine(c2x, cy, c2x + 22, cy + 16);
+    s += svgTxt(c2x + 30, cy - 22, 'H',   { anchor: 'start' });
+    s += svgTxt(c2x + 30, cy + 22, 'CH₃', { anchor: 'start' });
+  }
+  return svgWrap(s);
+}
+
+/* =====================================================================
+   分子数据库
+   ===================================================================== */
+const DB = [
+  {jp:'エタン',cn:'乙烷',cat:'ali',g:'脂肪族烃',s:zigzag(2)},
+  {jp:'プロパン',cn:'丙烷',cat:'ali',g:'脂肪族烃',s:zigzag(3)},
+  {jp:'ブタン',cn:'正丁烷',cat:'ali',g:'脂肪族烃',s:zigzag(4)},
+  {jp:'ヘキサン',cn:'正己烷',cat:'ali',g:'脂肪族烃',s:zigzag(6)},
+  {jp:'2-メチルプロパン',cn:'2-甲基丙烷',cat:'ali',g:'脂肪族烃',s:isobutane()},
+  {jp:'エチレン',cn:'乙烯',cat:'ali',g:'脂肪族烃',s:zigzag(2,{doubleBond:0,endLabels:false,subs:{0:{text:'CH₂',dir:'downleft'},1:{text:'CH₂',dir:'upright'}}})},
+  {jp:'プロペン',cn:'丙烯',cat:'ali',g:'脂肪族烃',s:zigzag(3,{doubleBond:0})},
+  {jp:'1-ブテン',cn:'1-丁烯',cat:'ali',g:'脂肪族烃',s:zigzag(4,{doubleBond:0})},
+  {jp:'シス-2-ブテン',cn:'顺-2-丁烯',cat:'ali',g:'脂肪族烃',s:butene2(true)},
+  {jp:'トランス-2-ブテン',cn:'反-2-丁烯',cat:'ali',g:'脂肪族烃',s:butene2(false)},
+  {jp:'2-メチルプロペン',cn:'2-甲基丙烯',cat:'ali',g:'脂肪族烃',s:isobutylene()},
+  {jp:'2-メチル-2-ブテン',cn:'2-甲基-2-丁烯',cat:'ali',g:'脂肪族烃',s:zigzag(4,{doubleBond:1,subs:{1:{text:'CH₃',dir:'up'}}})},
+  {jp:'アセチレン',cn:'乙炔',cat:'ali',g:'脂肪族烃',s:zigzag(2,{tripleBond:0,endLabels:false,subs:{0:{text:'CH',dir:'left'},1:{text:'CH',dir:'right'}}})},
+  {jp:'プロピン',cn:'丙炔',cat:'ali',g:'脂肪族烃',s:zigzag(3,{tripleBond:1})},
+  {jp:'シクロヘキサン',cn:'环己烷',cat:'ali',g:'环烷烃',s:cycloRing(6)},
+  {jp:'シクロプロパン',cn:'环丙烷',cat:'ali',g:'环烷烃',s:cycloRing(3)},
+  {jp:'シクロブタン',cn:'环丁烷',cat:'ali',g:'环烷烃',s:cycloRing(4)},
+  {jp:'シクロペンタン',cn:'环戊烷',cat:'ali',g:'环烷烃',s:cycloRing(5)},
+
+  {jp:'クロロメタン',cn:'一氯甲烷',cat:'ali',g:'卤代烃',s:textFormula('CH₃Cl')},
+  {jp:'ジクロロメタン',cn:'二氯甲烷',cat:'ali',g:'卤代烃',s:textFormula('CH₂Cl₂')},
+  {jp:'クロロホルム',cn:'氯仿（三氯甲烷）',cat:'ali',g:'卤代烃',s:textFormula('CHCl₃')},
+  {jp:'四塩化炭素',cn:'四氯化碳',cat:'ali',g:'卤代烃',s:textFormula('CCl₄')},
+  {jp:'ヨードホルム',cn:'碘仿（三碘甲烷）',cat:'ali',g:'卤代烃',s:textFormula('CHI₃')},
+  {jp:'クロロエタン',cn:'氯乙烷',cat:'ali',g:'卤代烃',s:zigzag(2,{subs:{1:{text:'Cl',dir:'upright'}}})},
+  {jp:'1,2-ジクロロエタン',cn:'1,2-二氯乙烷',cat:'ali',g:'卤代烃',s:zigzag(2,{subs:{0:{text:'Cl',dir:'downleft'},1:{text:'Cl',dir:'upright'}}})},
+  {jp:'塩化ビニル',cn:'氯乙烯',cat:'ali',g:'卤代烃',s:zigzag(2,{doubleBond:0,subs:{0:{text:'Cl',dir:'downleft'}}})},
+  {jp:'1,2-ジブロモエチレン',cn:'1,2-二溴乙烯',cat:'ali',g:'卤代烃',s:zigzag(2,{doubleBond:0,endLabels:false,subs:{0:{text:'Br',dir:'downleft'},1:{text:'Br',dir:'upright'}}})},
+
+  {jp:'メタノール',cn:'甲醇',cat:'ali',g:'醇',s:textFormula('CH₃—OH')},
+  {jp:'エタノール',cn:'乙醇',cat:'ali',g:'醇',s:zigzag(2,{subs:{1:{text:'OH',dir:'upright'}}})},
+  {jp:'エチレングリコール',cn:'乙二醇',cat:'ali',g:'醇',s:textFormula('HO—CH₂—CH₂—OH')},
+  {jp:'グリセリン',cn:'甘油（丙三醇）',cat:'ali',g:'醇',s:textFormula('HOCH₂—CH(OH)—CH₂OH')},
+  {jp:'1-プロパノール',cn:'1-丙醇',cat:'ali',g:'醇',s:zigzag(3,{subs:{2:{text:'OH',dir:'upright'}}})},
+  {jp:'2-プロパノール',cn:'2-丙醇（异丙醇）',cat:'ali',g:'醇',s:zigzag(3,{subs:{1:{text:'OH',dir:'up'}}})},
+  {jp:'1-ブタノール',cn:'1-丁醇',cat:'ali',g:'醇',s:zigzag(4,{subs:{3:{text:'OH',dir:'upright'}}})},
+  {jp:'2-メチル-2-プロパノール',cn:'2-甲基-2-丙醇',cat:'ali',g:'醇',s:textFormula('(CH₃)₃C—OH')},
+
+  {jp:'ジメチルエーテル',cn:'甲醚',cat:'ali',g:'醚',s:textFormula('CH₃—O—CH₃')},
+  {jp:'ジエチルエーテル',cn:'乙醚',cat:'ali',g:'醚',s:textFormula('C₂H₅—O—C₂H₅')},
+  {jp:'エチルメチルエーテル',cn:'甲乙醚',cat:'ali',g:'醚',s:textFormula('CH₃—O—C₂H₅')},
+
+  {jp:'ホルムアルデヒド',cn:'甲醛',cat:'ali',g:'醛',s:textFormula('H—CHO')},
+  {jp:'アセトアルデヒド',cn:'乙醛',cat:'ali',g:'醛',s:textFormula('CH₃—CHO')},
+  {jp:'プロピオンアルデヒド',cn:'丙醛',cat:'ali',g:'醛',s:textFormula('CH₃CH₂—CHO')},
+
+  {jp:'アセトン',cn:'丙酮',cat:'ali',g:'酮',s:textFormula('CH₃—CO—CH₃')},
+  {jp:'エチルメチルケトン',cn:'甲基乙基酮',cat:'ali',g:'酮',s:textFormula('CH₃—CO—C₂H₅')},
+  {jp:'ジエチルケトン',cn:'3-戊酮',cat:'ali',g:'酮',s:textFormula('C₂H₅—CO—C₂H₅')},
+
+  {jp:'ギ酸',cn:'甲酸',cat:'ali',g:'羧酸',s:textFormula('H—COOH')},
+  {jp:'酢酸',cn:'乙酸（醋酸）',cat:'ali',g:'羧酸',s:textFormula('CH₃—COOH')},
+  {jp:'プロピオン酸',cn:'丙酸',cat:'ali',g:'羧酸',s:textFormula('CH₃CH₂—COOH')},
+  {jp:'酪酸',cn:'丁酸',cat:'ali',g:'羧酸',s:textFormula('CH₃CH₂CH₂—COOH')},
+  {jp:'シュウ酸',cn:'草酸',cat:'ali',g:'羧酸',s:textFormula('HOOC—COOH')},
+  {jp:'マレイン酸',cn:'马来酸（顺丁烯二酸）',cat:'ali',g:'羧酸',s:textFormula('HOOC—CH=CH—COOH')},
+  {jp:'フマル酸',cn:'富马酸（反丁烯二酸）',cat:'ali',g:'羧酸',s:textFormula('HOOC—CH=CH—COOH')},
+  {jp:'乳酸',cn:'乳酸',cat:'ali',g:'羧酸',s:textFormula('CH₃—CH(OH)—COOH')},
+  {jp:'コハク酸',cn:'琥珀酸',cat:'ali',g:'羧酸',s:textFormula('HOOC—CH₂CH₂—COOH')},
+  {jp:'リンゴ酸',cn:'苹果酸',cat:'ali',g:'羧酸',s:textFormula('HOOC—CH(OH)CH₂—COOH')},
+  {jp:'アクリル酸',cn:'丙烯酸',cat:'ali',g:'羧酸',s:textFormula('CH₂=CH—COOH')},
+  {jp:'メタクリル酸',cn:'甲基丙烯酸',cat:'ali',g:'羧酸',s:textFormula('CH₂=C(CH₃)—COOH')},
+  {jp:'ラウリン酸',cn:'月桂酸',cat:'ali',g:'羧酸',s:textFormula('CH₃(CH₂)₁₀COOH')},
+  {jp:'ミリスチン酸',cn:'肉豆蔻酸',cat:'ali',g:'羧酸',s:textFormula('CH₃(CH₂)₁₂COOH')},
+  {jp:'パルミチン酸',cn:'棕榈酸',cat:'ali',g:'羧酸',s:textFormula('CH₃(CH₂)₁₄COOH')},
+  {jp:'ステアリン酸',cn:'硬脂酸',cat:'ali',g:'羧酸',s:textFormula('CH₃(CH₂)₁₆COOH')},
+  {jp:'オレイン酸',cn:'油酸',cat:'ali',g:'羧酸',s:textFormula('CH₃(CH₂)₇CH=CH(CH₂)₇COOH')},
+
+  {jp:'無水酢酸',cn:'乙酸酐',cat:'ali',g:'酸酐',s:textFormula('(CH₃CO)₂O')},
+
+  {jp:'酢酸エチル',cn:'乙酸乙酯',cat:'ali',g:'酯',s:textFormula('CH₃COO—C₂H₅')},
+  {jp:'ギ酸メチル',cn:'甲酸甲酯',cat:'ali',g:'酯',s:textFormula('H—COO—CH₃')},
+  {jp:'酢酸ビニル',cn:'乙酸乙烯酯',cat:'ali',g:'酯',s:textFormula('CH₃COO—CH=CH₂')},
+
+  {jp:'ベンゼン',cn:'苯',cat:'aro',g:'芳香族烃',s:benzene()},
+  {jp:'トルエン',cn:'甲苯',cat:'aro',g:'芳香族烃',s:benzene({R:'CH₃'})},
+  {jp:'エチルベンゼン',cn:'乙苯',cat:'aro',g:'芳香族烃',s:benzene({R:'C₂H₅'})},
+  {jp:'o-キシレン',cn:'邻二甲苯',cat:'aro',g:'芳香族烃',s:benzene({R:'CH₃',TR:'CH₃'})},
+  {jp:'m-キシレン',cn:'间二甲苯',cat:'aro',g:'芳香族烃',s:benzene({R:'CH₃',TL:'CH₃'})},
+  {jp:'p-キシレン',cn:'对二甲苯',cat:'aro',g:'芳香族烃',s:benzene({R:'CH₃',L:'CH₃'})},
+  {jp:'スチレン',cn:'苯乙烯',cat:'aro',g:'芳香族烃',s:benzene({R:'CH=CH₂'})},
+  {jp:'ナフタレン',cn:'萘',cat:'aro',g:'芳香族烃',s:naphthalene()},
+  {jp:'ニトロベンゼン',cn:'硝基苯',cat:'aro',g:'芳香族',s:benzene({R:'NO₂'})},
+  {jp:'ベンゼンスルホン酸',cn:'苯磺酸',cat:'aro',g:'芳香族',s:benzene({R:'SO₃H'})},
+  {jp:'クロロベンゼン',cn:'氯苯',cat:'aro',g:'芳香族',s:benzene({R:'Cl'})},
+  {jp:'ベンズアルデヒド',cn:'苯甲醛',cat:'aro',g:'芳香族',s:benzene({R:'CHO'})},
+  {jp:'ベンジルアルコール',cn:'苯甲醇',cat:'aro',g:'芳香族',s:benzene({R:'CH₂OH'})},
+  {jp:'フェノール',cn:'苯酚',cat:'aro',g:'酚类',s:benzene({R:'OH'})},
+  {jp:'o-クレゾール',cn:'邻甲酚',cat:'aro',g:'酚类',s:benzene({R:'OH',TR:'CH₃'})},
+  {jp:'ナトリウムフェノキシド',cn:'苯酚钠',cat:'aro',g:'酚类',s:benzene({R:'ONa'})},
+  {jp:'2,4,6-トリブロモフェノール',cn:'2,4,6-三溴苯酚',cat:'aro',g:'酚类',s:benzene({R:'OH',TR:'Br',L:'Br',BR:'Br'})},
+  {jp:'ビクリン酸',cn:'苦味酸',cat:'aro',g:'酚类',s:benzene({R:'OH',TR:'NO₂',L:'NO₂',BR:'NO₂'})},
+  {jp:'酢酸フェニル',cn:'乙酸苯酯',cat:'aro',g:'芳香族酯',s:benzene({R:'OCOCH₃'})},
+  {jp:'サリチル酸メチル',cn:'水杨酸甲酯',cat:'aro',g:'芳香族酯',s:benzene({R:'COOCH₃',TR:'OH'})},
+  {jp:'安息香酸エチル',cn:'苯甲酸乙酯',cat:'aro',g:'芳香族酯',s:benzene({R:'COOC₂H₅'})},
+  {jp:'クメン',cn:'异丙苯',cat:'aro',g:'芳香族',s:benzene({R:'CH(CH₃)₂'})},
+  {jp:'安息香酸',cn:'苯甲酸',cat:'aro',g:'芳香族羧酸',s:benzene({R:'COOH'})},
+  {jp:'o-フタル酸',cn:'邻苯二甲酸',cat:'aro',g:'芳香族羧酸',s:benzene({R:'COOH',TR:'COOH'})},
+  {jp:'m-フタル酸',cn:'间苯二甲酸',cat:'aro',g:'芳香族羧酸',s:benzene({R:'COOH',TL:'COOH'})},
+  {jp:'テレフタル酸',cn:'对苯二甲酸',cat:'aro',g:'芳香族羧酸',s:benzene({R:'COOH',L:'COOH'})},
+  {jp:'サリチル酸',cn:'水杨酸',cat:'aro',g:'芳香族羧酸',s:benzene({R:'COOH',TR:'OH'})},
+  {jp:'アセチルサリチル酸',cn:'乙酰水杨酸（阿司匹林）',cat:'aro',g:'芳香族羧酸',s:benzene({R:'COOH',TR:'OCOCH₃'})},
+  {jp:'アニリン',cn:'苯胺',cat:'aro',g:'芳香族胺',s:benzene({R:'NH₂'})},
+  {jp:'アニリン塩酸塩',cn:'盐酸苯胺',cat:'aro',g:'芳香族胺',s:benzene({R:'NH₃⁺Cl⁻'})},
+  {jp:'アセトアニリド',cn:'乙酰苯胺',cat:'aro',g:'芳香族胺',s:benzene({R:'NHCOCH₃'})},
+  {jp:'ニトロトルエン',cn:'硝基甲苯',cat:'aro',g:'芳香族',s:benzene({R:'CH₃',TR:'NO₂'})},
+  {jp:'1,3-ジニトロベンゼン',cn:'1,3-二硝基苯',cat:'aro',g:'芳香族',s:benzene({R:'NO₂',TL:'NO₂'})},
+  {jp:'2,4,6-トリニトロトルエン',cn:'2,4,6-三硝基甲苯（TNT）',cat:'aro',g:'芳香族',s:benzene({R:'CH₃',TR:'NO₂',L:'NO₂',BR:'NO₂'})},
+  {jp:'1-ナフトール',cn:'1-萘酚（α-萘酚）',cat:'aro',g:'萘衍生物',s:naphthalene({Lt:'OH'})},
+  {jp:'2-ナフトール',cn:'2-萘酚（β-萘酚）',cat:'aro',g:'萘衍生物',s:naphthalene({Llt:'OH'})},
+
+  {jp:'ポリエチレン',cn:'聚乙烯',cat:'poly',g:'合成高分子',s:textFormula('—(CH₂—CH₂)ₙ—')},
+  {jp:'ポリプロピレン',cn:'聚丙烯',cat:'poly',g:'合成高分子',s:textFormula('—(CH₂—CH(CH₃))ₙ—')},
+  {jp:'ポリスチレン',cn:'聚苯乙烯',cat:'poly',g:'合成高分子',s:textFormula('—(CH₂—CH(C₆H₅))ₙ—')},
+  {jp:'ポリ塩化ビニル',cn:'聚氯乙烯',cat:'poly',g:'合成高分子',s:textFormula('—(CH₂—CHCl)ₙ—')},
+  {jp:'ポリアクリロニトリル',cn:'聚丙烯腈',cat:'poly',g:'合成高分子',s:textFormula('—(CH₂—CH(CN))ₙ—')},
+  {jp:'ポリ酢酸ビニル',cn:'聚醋酸乙烯酯',cat:'poly',g:'合成高分子',s:textFormula('—(CH₂—CH(OCOCH₃))ₙ—')},
+  {jp:'ナイロン66',cn:'尼龙66',cat:'poly',g:'合成高分子',s:textFormula('—[NH(CH₂)₆NH—CO(CH₂)₄CO]ₙ—')},
+  {jp:'ポリエチレンテレフタラート',cn:'聚对苯二甲酸乙二醇酯（PET）',cat:'poly',g:'合成高分子',s:textFormula('—[CO—C₆H₄—COO—CH₂CH₂—O]ₙ—')},
+  {jp:'フェノール樹脂',cn:'酚醛树脂',cat:'poly',g:'合成高分子',s:textFormula('—(C₆H₄(OH)—CH₂)ₙ—')},
+  {jp:'尿素樹脂',cn:'脲醛树脂',cat:'poly',g:'合成高分子',s:textFormula('—(NH—CO—NH—CH₂)ₙ—')},
+  {jp:'天然ゴム',cn:'天然橡胶',cat:'poly',g:'天然高分子',s:textFormula('—(CH₂—C(CH₃)=CH—CH₂)ₙ—')},
+  {jp:'ブタジエンゴム',cn:'顺丁橡胶',cat:'poly',g:'合成高分子',s:textFormula('—(CH₂—CH=CH—CH₂)ₙ—')},
+  {jp:'デンプン',cn:'淀粉',cat:'poly',g:'天然高分子',s:textFormula('—(C₆H₁₀O₅)ₙ—')},
+  {jp:'セルロース',cn:'纤维素',cat:'poly',g:'天然高分子',s:textFormula('—(C₆H₁₀O₅)ₙ—')},
+  {jp:'タンパク質',cn:'蛋白质',cat:'poly',g:'天然高分子',s:textFormula('—(NH—CHR—CO)ₙ—')}
+];
+
+/* =====================================================================
+   状态
+   ===================================================================== */
+const TOTAL_Q = 10;
+const PASS = 7;
+let quiz = [];
+let curIdx = 0;
+let score = 0;
+let answered = false;
+let wrongList = [];
+
+const $ = id => document.getElementById(id);
+const CIRC = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';
+
+function shuffle(a){
+  a = a.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function pick(arr, n, exclude){
+  const pool = arr.filter(x => !exclude || !exclude.includes(x));
+  return shuffle(pool).slice(0, n);
+}
+
+/* =====================================================================
+   浏览模式
+   ===================================================================== */
+function renderBrowse(){
+  const groups = {};
+  for (const m of DB){
+    const g = m.g || 'その他';
+    if (!groups[g]) groups[g] = [];
+    groups[g].push(m);
+  }
+
+  let html = '';
+  for (const [gName, list] of Object.entries(groups)){
+    html += `<div class="browse-section">
+      <h3>📁 ${gName} <span style="color:#94a3b8;font-weight:600;font-size:12px;">(${list.length})</span></h3>
+      <div class="browse-grid">`;
+    for (const m of list){
+      html += `<div class="browse-card">
+        <div class="b-svg">${m.s}</div>
+        <div class="b-jp">${m.jp}</div>
+        <div class="b-cn">${m.cn}</div>
+      </div>`;
+    }
+    html += `</div></div>`;
+  }
+  html += `<div class="browse-actions">
+    <button class="btn" id="browseStartBtn">▶ 特訓スタート</button>
+  </div>`;
+
+  $('browseCard').innerHTML = html;
+  $('browseCount').textContent = `全 ${DB.length} 分子`;
+
+  $('browseStartBtn').addEventListener('click', startQuiz);
+}
+
+/* =====================================================================
+   出题
+   ===================================================================== */
+function buildQuiz(){
+  const pool = shuffle(DB).slice(0, TOTAL_Q);
+  return pool.map(mol => {
+    const r = Math.random();
+    if (r < 0.62) return makeNameQuestion(mol);
+    return makeStructQuestion(mol);
+  });
+}
+
+function makeNameQuestion(mol){
+  const same = DB.filter(x => x.cat === mol.cat && x.jp !== mol.jp);
+  const others = pick(same.length >= 3 ? same : DB.filter(x => x.jp !== mol.jp), 3, [mol]);
+  const opts = shuffle([mol, ...others]);
+  return { type: 'name', mol, opts, ans: opts.indexOf(mol) };
+}
+
+function makeStructQuestion(mol){
+  const same = DB.filter(x => x.cat === mol.cat && x.jp !== mol.jp);
+  const others = pick(same.length >= 7 ? same : DB.filter(x => x.jp !== mol.jp), 7, [mol]);
+  const opts = shuffle([mol, ...others]);
+  return { type: 'struct', mol, opts, ans: opts.indexOf(mol) };
+}
+
+/* =====================================================================
+   渲染
+   ===================================================================== */
+function showView(v){
+  document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
+  $('v-' + v).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateHUD(){
+  const p = Math.round(curIdx / TOTAL_Q * 100);
+  $('bar').style.width = p + '%';
+  $('pct').textContent = p + '%';
+  $('scoreNum').textContent = score;
+  $('qMeta').innerHTML = `第 ${curIdx + 1} 問<small>全 ${TOTAL_Q} 問</small>`;
+}
+
+function renderQuestion(){
+  const q = quiz[curIdx];
+  answered = false;
+  updateHUD();
+
+  const card = $('quizCard');
+  let html = '';
+
+  if (q.type === 'name'){
+    html += `<span class="qtag">構造 → 名称</span>`;
+    html += `<div class="prompt">この構造式の名称は？</div>`;
+    html += `<div class="structbox">${q.mol.s}</div>`;
+    html += `<div class="options" id="optBox">`;
+    q.opts.forEach((o, i) => {
+      html += `<button class="opt" data-i="${i}">
+        <span class="num">${CIRC[i]}</span>
+        <span class="txt">${o.jp}</span>
+      </button>`;
+    });
+    html += `</div>`;
+  } else {
+    html += `<span class="qtag pick">名称 → 構造</span>`;
+    html += `<div class="prompt">「${q.mol.jp}」の構造式はどれ？</div>`;
+    html += `<div class="structbox" style="min-height:auto;padding:14px;background:none;border:none;">
+      <div style="font-size:24px;font-weight:900;color:#4338ca;letter-spacing:1px;">${q.mol.jp}</div>
+    </div>`;
+    html += `<div class="options grid4" id="optBox">`;
+    q.opts.forEach((o, i) => {
+      html += `<button class="sopt" data-i="${i}">
+        <span class="snum">${i + 1}</span>
+        ${o.s}
+      </button>`;
+    });
+    html += `</div>`;
+  }
+
+  html += `<div id="fbArea"></div>`;
+  card.innerHTML = html;
+
+  card.querySelectorAll('.opt, .sopt').forEach(btn => {
+    btn.addEventListener('click', () => submitChoice(parseInt(btn.dataset.i, 10)));
+  });
+
+  card.style.animation = 'none';
+  void card.offsetWidth;
+  card.style.animation = 'pop .42s cubic-bezier(.34,1.56,.64,1)';
+}
+
+/* =====================================================================
+   判题
+   ===================================================================== */
+function submitChoice(i){
+  if (answered) return;
+  answered = true;
+
+  const q = quiz[curIdx];
+  const correct = (i === q.ans);
+  const btns = document.querySelectorAll('#optBox > button');
+
+  btns.forEach((b, idx) => {
+    b.disabled = true;
+    if (idx === q.ans) b.classList.add('correct');
+    else if (idx === i) b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+
+  finishQuestion(correct, q);
+}
+
+function finishQuestion(correct, q){
+  if (correct){
+    score++;
+    $('scoreNum').textContent = score;
+  } else {
+    wrongList.push({ idx: curIdx + 1, jp: q.mol.jp, cn: q.mol.cn });
+  }
+
+  const isLast = (curIdx === TOTAL_Q - 1);
+  let html = `<div class="feedback ${correct ? 'ok' : 'no'}">
+    <div class="fb-title">${correct ? '🎉 正解！' : '❌ 残念…'}</div>
+    <div class="fb-body">`;
+
+  html += `<div class="row"><span class="lbl">日文</span><span><b>${q.mol.jp}</b></span></div>`;
+  html += `<div class="row"><span class="lbl">中文</span><span>${q.mol.cn}</span></div>`;
+  html += `<div class="row" style="margin-top:10px;"><span class="lbl">構造</span><span style="flex:1;">${q.mol.s}</span></div>`;
+
+  html += `</div>
+    <button class="nextbtn" id="nextBtn">${isLast ? '🏁 結果を見る' : '次の問題 →'}</button>
+  </div>`;
+
+  $('fbArea').innerHTML = html;
+
+  $('nextBtn').addEventListener('click', () => {
+    if (isLast) showResult();
+    else {
+      curIdx++;
+      renderQuestion();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+
+  $('fbArea').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/* =====================================================================
+   结果页
+   ===================================================================== */
+const TITLES = [
+  {min:10, name:'有機化学の神様', emoji:'👑', msg:'全問正解！もはや教科書より正確です。'},
+  {min:9,  name:'有機マスター',   emoji:'🏆', msg:'あと一歩で完璧！素晴らしい実力です。'},
+  {min:8,  name:'合成の匠',       emoji:'💎', msg:'見事な成績！命名のセンスが光っています。'},
+  {min:7,  name:'官能基ハンター', emoji:'⭐', msg:'合格ライン突破！この調子で覚えていこう。'},
+  {min:0,  name:'再挑戦の戦士',   emoji:'🥲', msg:'もう一度チャレンジして、称号を手に入れよう！'}
+];
+
+function showResult(){
+  $('bar').style.width = '100%';
+  $('pct').textContent = '100%';
+
+  const rate = Math.round(score / TOTAL_Q * 100);
+  const t = TITLES.find(x => score >= x.min);
+  const passed = score >= PASS;
+
+  const R = 72, C = 2 * Math.PI * R;
+  const dash = C * rate / 100;
+
+  let html = `<div class="result">
+    <div class="emoji">${t.emoji}</div>`;
+
+  if (passed){
+    html += `<h2>特訓クリア！</h2>
+      <div class="title-badge">${t.name}</div>`;
+  } else {
+    html += `<h2>もう少し！</h2>
+      <div class="title-badge" style="background:linear-gradient(135deg,#94a3b8,#64748b);box-shadow:0 8px 24px rgba(100,116,139,.34);">${t.name}</div>`;
+  }
+
+  html += `<p class="sub">${t.msg}</p>`;
+
+  html += `<div class="ring">
+    <svg width="180" height="180">
+      <circle cx="90" cy="90" r="${R}" fill="none" stroke="#eef2ff" stroke-width="15"/>
+      <circle cx="90" cy="90" r="${R}" fill="none" stroke="url(#gr)" stroke-width="15"
+        stroke-linecap="round" stroke-dasharray="${dash} ${C - dash}"/>
+      <defs>
+        <linearGradient id="gr" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#6366f1"/>
+          <stop offset="100%" stop-color="#ec4899"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="inner">
+      <div class="bignum">${score}<small>/${TOTAL_Q}</small></div>
+      <div style="font-size:13px;color:#94a3b8;margin-top:4px;">正答率 ${rate}%</div>
+    </div>
+  </div>`;
+
+  if (wrongList.length){
+    html += `<div class="review">
+      <h3>📝 間違えた問題</h3>
+      ${wrongList.map(w => `
+        <div class="item">
+          <span class="tag">Q${w.idx}</span>
+          <span><b style="color:#4f46e5;">${w.jp}</b>
+            <span style="color:#94a3b8;">（${w.cn}）</span></span>
+        </div>`).join('')}
+    </div>`;
+  } else {
+    html += `<div class="review" style="text-align:center;">
+      <h3 style="margin-bottom:0;">✨ 全問正解！完璧です！</h3>
+    </div>`;
+  }
+
+  html += `<button class="again" id="againBtn">🔄 もう一度挑戦</button></div>`;
+
+  $('resultCard').innerHTML = html;
+  $('againBtn').addEventListener('click', startQuiz);
+
+  showView('result');
+
+  if (passed) setTimeout(confetti, 180);
+}
+
+/* =====================================================================
+   彩带
+   ===================================================================== */
+function confetti(){
+  const cv = $('confetti');
+  cv.width = window.innerWidth;
+  cv.height = window.innerHeight;
+  cv.style.display = 'block';
+  const ctx = cv.getContext('2d');
+  const colors = ['#6366f1','#ec4899','#f59e0b','#10b981','#3b82f6','#f43f5e','#8b5cf6','#fbbf24'];
+  const parts = [];
+  for (let i = 0; i < 200; i++){
+    parts.push({
+      x: Math.random() * cv.width,
+      y: Math.random() * cv.height * 0.6 - cv.height,
+      w: 6 + Math.random() * 9,
+      h: 4 + Math.random() * 7,
+      vx: (Math.random() - 0.5) * 3.2,
+      vy: 2 + Math.random() * 5,
+      rot: Math.random() * Math.PI * 2,
+      vr: (Math.random() - 0.5) * 0.22,
+      c: colors[Math.floor(Math.random() * colors.length)]
+    });
+  }
+  let t = 0;
+  (function loop(){
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    t++;
+    parts.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.vy += 0.07;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.c;
+      ctx.globalAlpha = Math.max(0, 1 - t / 340);
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    });
+    if (t < 340) requestAnimationFrame(loop);
+    else { ctx.clearRect(0, 0, cv.width, cv.height); cv.style.display = 'none'; }
+  })();
+}
+
+/* =====================================================================
+   启动
+   ===================================================================== */
+function startQuiz(){
+  quiz = buildQuiz();
+  curIdx = 0;
+  score = 0;
+  wrongList = [];
+  $('scoreNum').textContent = '0';
+  showView('quiz');
+  renderQuestion();
+}
+
+function startBrowse(){
+  renderBrowse();
+  showView('browse');
+}
+
+$('startBtn').addEventListener('click', startQuiz);
+$('browseBtn').addEventListener('click', startBrowse);
+$('browseBackBtn').addEventListener('click', () => showView('start'));
+$('backBtn').addEventListener('click', () => showView('start'));
+
+document.addEventListener('keydown', e => {
+  if (!$('v-quiz').classList.contains('active')) return;
+  const q = quiz[curIdx];
+  if (!q || answered) return;
+
+  if (/^[1-8]$/.test(e.key)){
+    const idx = parseInt(e.key, 10) - 1;
+    const btns = document.querySelectorAll('#optBox > button');
+    if (btns[idx]){ e.preventDefault(); btns[idx].click(); }
+    return;
+  }
+  if (e.key === 'Enter' || e.key === ' '){
+    const nb = $('nextBtn');
+    if (nb){ e.preventDefault(); nb.click(); }
+  }
+});
+
+$('dbCount').textContent = DB.length;
+</script>
+</body>
+</html>

@@ -35,7 +35,16 @@ body{
 .hero h1{font-size:27px;font-weight:900;letter-spacing:.5px;margin-bottom:8px;}
 .hero p{font-size:14px;color:#64748b;line-height:1.75;}
 
-.panel{background:#fff;border-radius:28px;padding:30px 26px;box-shadow:0 18px 55px rgba(79,70,229,.14);}
+.panel{background:#fff;border-radius:28px;padding:26px 24px;box-shadow:0 18px 55px rgba(79,70,229,.14);margin-bottom:20px;}
+.panel-title{
+  font-size:15px;font-weight:900;color:#1e293b;letter-spacing:.5px;
+  margin-bottom:16px;display:flex;align-items:center;gap:8px;
+}
+.panel-title .tag{
+  font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;
+  background:#eef2ff;color:#6366f1;letter-spacing:.5px;
+}
+.panel-title .tag.learn{background:#fef3c7;color:#b45309;}
 .statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
 .statbox{background:#f8faff;border-radius:18px;padding:16px 8px;text-align:center;border:1.5px solid #eef2ff;}
 .statbox b{font-size:24px;font-weight:900;color:#6366f1;display:block;line-height:1.15;}
@@ -59,7 +68,24 @@ body{
 }
 .btn-outline:hover{background:#f5f3ff;border-color:#a5b4fc;transform:translateY(-2px);}
 
-.tips{margin-top:22px;font-size:13px;color:#94a3b8;line-height:1.9;text-align:center;}
+.btn-learn{
+  width:100%;padding:16px;border:2px solid #fbbf24;border-radius:18px;
+  font-size:16px;font-weight:900;font-family:inherit;letter-spacing:.6px;
+  cursor:pointer;transition:.2s;background:#fffbeb;color:#b45309;
+}
+.btn-learn:hover{background:#fef3c7;border-color:#f59e0b;transform:translateY(-2px);}
+
+.btn-sm{
+  padding:10px 18px;border:none;border-radius:12px;font-size:14px;font-weight:900;
+  font-family:inherit;cursor:pointer;transition:.2s;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;
+  box-shadow:0 6px 18px rgba(99,102,241,.3);
+}
+.btn-sm:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(99,102,241,.4);}
+.btn-sm.gray{background:#e2e8f0;color:#475569;box-shadow:none;}
+.btn-sm.gray:hover{background:#cbd5e1;transform:none;}
+
+.tips{margin-top:16px;font-size:12.5px;color:#94a3b8;line-height:1.9;text-align:center;}
 .tips b{color:#6366f1;}
 
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
@@ -99,7 +125,7 @@ body{
   display:flex;align-items:center;justify-content:center;
   min-height:150px;border:2px solid #eef2ff;
 }
-.struct-svg{width:100%;max-width:320px;height:auto;display:block;}
+.struct-svg{width:100%;max-width:340px;height:auto;display:block;}
 
 .options{display:flex;flex-direction:column;gap:11px;}
 .options.grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
@@ -195,29 +221,43 @@ body{
 }
 .review .item:last-child{border-bottom:none;}
 .review .tag{flex:none;background:#eef2ff;color:#6366f1;font-weight:900;font-size:12px;padding:3px 10px;border-radius:8px;}
+.again-row{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap;justify-content:center;}
 .again{
-  margin-top:22px;padding:16px 46px;border:none;border-radius:17px;
+  flex:1;min-width:160px;padding:16px;border:none;border-radius:17px;
   background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;
   font-size:16px;font-weight:900;font-family:inherit;cursor:pointer;
   box-shadow:0 10px 28px rgba(99,102,241,.36);transition:.2s;
 }
 .again:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(99,102,241,.46);}
+.again.home{
+  background:#fff;color:#4f46e5;border:2px solid #c7d2fe;box-shadow:none;
+}
+.again.home:hover{background:#f5f3ff;box-shadow:0 6px 18px rgba(99,102,241,.15);}
 
-/* 浏览模式 */
 .browse-section{margin-bottom:32px;}
 .browse-section h3{
   font-size:14px;font-weight:900;color:#4f46e5;letter-spacing:.8px;
   margin-bottom:14px;padding-bottom:8px;
   border-bottom:2px solid #e0e7ff;
-  display:flex;align-items:center;gap:8px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
 }
+.browse-section h3 label{
+  display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;
+  color:#64748b;cursor:pointer;margin-left:auto;
+}
+.browse-section h3 input[type=checkbox]{width:16px;height:16px;accent-color:#6366f1;cursor:pointer;}
 .browse-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
 .browse-card{
   background:#f8faff;border:1.5px solid #eef2ff;border-radius:16px;
   padding:14px 12px;display:flex;flex-direction:column;align-items:center;gap:8px;
-  transition:.18s;
+  transition:.18s;position:relative;
 }
 .browse-card:hover{border-color:#c7d2fe;background:#fff;box-shadow:0 6px 20px rgba(99,102,241,.1);}
+.browse-card.selected{border-color:#6366f1;background:#eef2ff;box-shadow:0 6px 20px rgba(99,102,241,.2);}
+.browse-card .b-check{
+  position:absolute;top:8px;left:10px;width:18px;height:18px;
+  accent-color:#6366f1;cursor:pointer;
+}
 .browse-card .b-svg{
   width:100%;display:flex;align-items:center;justify-content:center;
   min-height:100px;
@@ -230,12 +270,16 @@ body{
 .browse-card .b-cn{
   font-size:11.5px;color:#94a3b8;text-align:center;font-weight:600;
 }
-.browse-actions{position:sticky;bottom:16px;margin-top:28px;z-index:10;}
+.browse-actions{
+  position:sticky;bottom:16px;margin-top:28px;z-index:10;
+  display:flex;gap:12px;flex-wrap:wrap;
+}
+.browse-actions .btn{flex:1;min-width:200px;}
 
 @media (max-width:640px){
   body{padding:14px 10px 44px;}
   .card{padding:24px 16px 22px;border-radius:22px;}
-  .panel{padding:24px 18px;border-radius:22px;}
+  .panel{padding:22px 16px;border-radius:22px;}
   .options.grid4{grid-template-columns:repeat(1,1fr);}
   .browse-grid{grid-template-columns:repeat(1,1fr);}
   .hero h1{font-size:23px;}
@@ -248,6 +292,7 @@ body{
 <canvas id="confetti"></canvas>
 <div class="wrap">
 
+  <!-- ========== 开始页 ========== -->
   <section id="v-start" class="view active">
     <div class="hero">
       <div class="icon">🧬</div>
@@ -258,27 +303,49 @@ body{
     <div class="panel">
       <div class="statgrid">
         <div class="statbox"><b id="dbCount">0</b><small>収録分子</small></div>
-        <div class="statbox"><b>10</b><small>出題数</small></div>
-        <div class="statbox"><b>7</b><small>合格ライン</small></div>
+        <div class="statbox"><b id="basicCount">0</b><small>基礎版</small></div>
+        <div class="statbox"><b>10</b><small>最大出題数</small></div>
       </div>
-      <button class="btn" id="startBtn">▶ 特訓スタート</button>
-      <button class="btn-outline" id="browseBtn">📖 まずは構造式と名前を確認する</button>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">
+        <span class="tag">試験</span>
+        <span>テストモード</span>
+      </div>
+      <button class="btn" id="startAllBtn">📚 全部単語で特訓スタート</button>
+      <button class="btn-outline" id="startBasicBtn">📘 基礎版で特訓スタート</button>
+      <button class="btn-outline" id="selectRangeBtn">🎯 範囲を選んで特訓する</button>
       <p class="tips">
         出題形式：<b>構造 → 名称（選択）</b> / <b>名称 → 構造（8択）</b>
       </p>
     </div>
+
+    <div class="panel">
+      <div class="panel-title">
+        <span class="tag learn">学習</span>
+        <span>単語カタログ</span>
+      </div>
+      <button class="btn-learn" id="browseBtn">📖 構造式と名前を全部見る</button>
+      <p class="tips">
+        試験の前に、すべての分子の構造式・日本語名・中国語名を確認できます。
+      </p>
+    </div>
   </section>
 
+  <!-- ========== 浏览页 ========== -->
   <section id="v-browse" class="view">
     <div class="topbar">
       <div class="left">
         <button class="backbtn" id="browseBackBtn">←</button>
-        <div class="qmeta">📖 分子カタログ<small id="browseCount">全 0 分子</small></div>
+        <div class="qmeta" id="browseTitle">📖 分子カタログ<small id="browseCount">全 0 分子</small></div>
       </div>
+      <div id="browseTools" style="display:flex;gap:8px;align-items:center;"></div>
     </div>
     <div class="card" id="browseCard"></div>
   </section>
 
+  <!-- ========== 答题页 ========== -->
   <section id="v-quiz" class="view">
     <div class="topbar">
       <div class="left">
@@ -296,6 +363,7 @@ body{
     <div class="card" id="quizCard"></div>
   </section>
 
+  <!-- ========== 结果页 ========== -->
   <section id="v-result" class="view">
     <div class="card" id="resultCard"></div>
   </section>
@@ -304,13 +372,12 @@ body{
 
 <script>
 /* =====================================================================
-   工具
+   SVG 基础工具
    ===================================================================== */
 function svgLine(x1, y1, x2, y2, w = 2.4){
   return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="#1e293b" stroke-width="${w}" stroke-linecap="round"/>`;
 }
 
-/* 双键：垂直于键轴偏移（用于链状分子） */
 function svgDbl(x1, y1, x2, y2, off = 4.5, w = 2.4){
   const len = Math.hypot(x2 - x1, y2 - y1) || 1;
   const px = -(y2 - y1) / len * off;
@@ -319,7 +386,6 @@ function svgDbl(x1, y1, x2, y2, off = 4.5, w = 2.4){
          svgLine(x1 + px, y1 + py, x2 + px, y2 + py, w);
 }
 
-/* 双键：朝指定点 (cx,cy) 方向偏移（用于苯环，让双键在环内侧） */
 function svgDblTo(x1, y1, x2, y2, cx, cy, off = 4.5, w = 2.4){
   const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
   const dx = cx - mx, dy = cy - my;
@@ -329,7 +395,6 @@ function svgDblTo(x1, y1, x2, y2, cx, cy, off = 4.5, w = 2.4){
          svgLine(x1 + px, y1 + py, x2 + px, y2 + py, w);
 }
 
-/* 三键 */
 function svgTpl(x1, y1, x2, y2, off = 4, w = 2.2){
   const len = Math.hypot(x2 - x1, y2 - y1) || 1;
   const px = -(y2 - y1) / len * off;
@@ -340,19 +405,12 @@ function svgTpl(x1, y1, x2, y2, off = 4, w = 2.2){
 }
 
 function svgTxt(x, y, text, opts = {}){
-  const { anchor = 'middle', size = 15, weight = 800 } = opts;
-  return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle" font-size="${size}" font-weight="${weight}" fill="#1e293b" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif">${text}</text>`;
+  const { anchor = 'middle', size = 15, weight = 800, baseline = 'middle' } = opts;
+  return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="${baseline}" font-size="${size}" font-weight="${weight}" fill="#1e293b" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif">${text}</text>`;
 }
 
-function svgWrap(inner, w = 300, h = 180){
+function svgWrap(inner, w = 340, h = 180){
   return `<svg viewBox="0 0 ${w} ${h}" class="struct-svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">${inner}</svg>`;
-}
-
-/* 旋转向量（角度制） */
-function rot(vx, vy, angleDeg){
-  const a = angleDeg * Math.PI / 180;
-  const c = Math.cos(a), s = Math.sin(a);
-  return [vx * c - vy * s, vx * s + vy * c];
 }
 
 /* =====================================================================
@@ -365,46 +423,41 @@ function textFormula(str){
   if (len > 18) fs = 15;
   if (len > 26) fs = 12;
   if (len > 34) fs = 10;
-  return svgWrap(svgTxt(150, 90, str, { size: fs }));
+  return svgWrap(svgTxt(170, 90, str, { size: fs }));
 }
 
 /* =====================================================================
-   锯齿形链状骨架（★ 修正三键为直线 sp）
+   锯齿形链状骨架
    ===================================================================== */
 function zigzag(n, opts = {}){
   const { doubleBond = -1, tripleBond = -1, subs = {}, endLabels = true } = opts;
   const bl = 28;
-
   const hasTriple = tripleBond >= 0;
 
-  /* 计算每个键的方向角度 */
   const dirs = [];
   for (let i = 0; i < n - 1; i++){
     if (i === 0){
       dirs[i] = hasTriple ? 0 : -30;
     } else if (i === tripleBond || i - 1 === tripleBond){
-      dirs[i] = dirs[i - 1];        /* 三键共线 → 直线 */
+      dirs[i] = dirs[i - 1];
     } else {
       dirs[i] = dirs[i - 1] === -30 ? 30 : -30;
     }
   }
 
-  /* 计算位置 */
   const pts = [[0, 0]];
   for (let i = 0; i < n - 1; i++){
     const a = dirs[i] * Math.PI / 180;
     pts.push([pts[i][0] + bl * Math.cos(a), pts[i][1] + bl * Math.sin(a)]);
   }
 
-  /* 居中 */
   const xs = pts.map(p => p[0]);
   const ys = pts.map(p => p[1]);
   const cx = (Math.min(...xs) + Math.max(...xs)) / 2;
   const cy = (Math.min(...ys) + Math.max(...ys)) / 2;
-  const ox = 150 - cx, oy = 90 - cy;
+  const ox = 170 - cx, oy = 90 - cy;
   for (const p of pts){ p[0] += ox; p[1] += oy; }
 
-  /* 绘制主链键 */
   let s = '';
   for (let i = 0; i < n - 1; i++){
     const [x1, y1] = pts[i], [x2, y2] = pts[i + 1];
@@ -413,7 +466,6 @@ function zigzag(n, opts = {}){
     else                       s += svgLine(x1, y1, x2, y2);
   }
 
-  /* 端点 CH₃ */
   if (endLabels && n >= 2 && subs[0] === undefined){
     const [x0, y0] = pts[0], [x1, y1] = pts[1];
     const ddx = x0 - x1, ddy = y0 - y1;
@@ -427,7 +479,6 @@ function zigzag(n, opts = {}){
     s += svgTxt(xn + ddx / dl * 16, yn + ddy / dl * 16, 'CH₃');
   }
 
-  /* 取代基 */
   for (const [idx, info] of Object.entries(subs)){
     const i = parseInt(idx);
     const [x, y] = pts[i];
@@ -455,7 +506,7 @@ function zigzag(n, opts = {}){
    环烷烃
    ===================================================================== */
 function cycloRing(n){
-  const cx = 150, cy = 90, r = 42;
+  const cx = 170, cy = 90, r = 42;
   const pts = [];
   for (let i = 0; i < n; i++){
     const a = -Math.PI / 2 + i * 2 * Math.PI / n;
@@ -470,10 +521,74 @@ function cycloRing(n){
 }
 
 /* =====================================================================
-   ★ 苯环（凯库勒式，双键在环内侧）
+   苯环上的 C=O 取代基
+   ===================================================================== */
+function drawCarbonylSubst(x, y, dx, dy, type){
+  let s = '';
+  const signX = dx > 0 ? 1 : -1;
+  const cos30 = 0.866, sin30 = 0.5;
+
+  if (type === 'OCOCH₃'){
+    const O1x = x + dx * 20, O1y = y + dy * 20;
+    s += svgLine(x, y, O1x, O1y);
+    s += svgTxt(O1x + dx * 11, O1y + dy * 11, 'O', { size: 15 });
+
+    const ocx = signX * cos30, ocy = sin30;
+    const Cx = O1x + ocx * 24, Cy = O1y + ocy * 24;
+    s += svgLine(O1x, O1y, Cx, Cy);
+
+    const cox = 0, coy = 1;
+    const Ox = Cx + cox * 24, Oy = Cy + coy * 24;
+    s += svgDbl(Cx, Cy, Ox, Oy);
+    s += svgTxt(Ox + cox * 12, Oy + coy * 12, 'O', { size: 15 });
+
+    const chx = signX * cos30, chy = -sin30;
+    const CHx = Cx + chx * 26, CHy = Cy + chy * 26;
+    s += svgLine(Cx, Cy, CHx, CHy);
+    s += svgTxt(CHx + chx * 14, CHy + chy * 14, 'CH₃', { size: 13 });
+    return s;
+  }
+
+  const Cx = x + dx * 20, Cy = y + dy * 20;
+  s += svgLine(x, y, Cx, Cy);
+
+  const cox = 0, coy = -1;
+  const Ox = Cx + cox * 24, Oy = Cy + coy * 24;
+  s += svgDbl(Cx, Cy, Ox, Oy);
+  s += svgTxt(Ox + cox * 12, Oy + coy * 12, 'O', { size: 15 });
+
+  const rx = signX * cos30, ry = sin30;
+
+  if (type === 'COOH'){
+    const Rx = Cx + rx * 26, Ry = Cy + ry * 26;
+    s += svgLine(Cx, Cy, Rx, Ry);
+    s += svgTxt(Rx + rx * 14, Ry + ry * 14, 'OH', { size: 14 });
+  } else if (type === 'CHO'){
+    const Rx = Cx + rx * 26, Ry = Cy + ry * 26;
+    s += svgLine(Cx, Cy, Rx, Ry);
+    s += svgTxt(Rx + rx * 14, Ry + ry * 14, 'H', { size: 15 });
+  } else if (type === 'COCH₃'){
+    const Rx = Cx + rx * 26, Ry = Cy + ry * 26;
+    s += svgLine(Cx, Cy, Rx, Ry);
+    s += svgTxt(Rx + rx * 14, Ry + ry * 14, 'CH₃', { size: 13 });
+  } else if (type === 'COOCH₃' || type === 'COOC₂H₅'){
+    const Ox2 = Cx + rx * 24, Oy2 = Cy + ry * 24;
+    s += svgLine(Cx, Cy, Ox2, Oy2);
+    s += svgTxt(Ox2 + rx * 11, Oy2 + ry * 11, 'O', { size: 15 });
+
+    const R2x = Ox2 + rx * 22, R2y = Oy2 + ry * 22;
+    s += svgLine(Ox2, Oy2, R2x, R2y);
+    const label = type === 'COOCH₃' ? 'CH₃' : 'C₂H₅';
+    s += svgTxt(R2x + rx * 14, R2y + ry * 14, label, { size: 13 });
+  }
+  return s;
+}
+
+/* =====================================================================
+   苯环（凯库勒式）
    ===================================================================== */
 function benzene(subs = {}){
-  const cx = 150, cy = 95, r = 40;
+  const cx = 170, cy = 95, r = 40;
   const s3 = Math.sqrt(3);
   const V = [
     [cx + r,               cy                  ],
@@ -508,7 +623,7 @@ function benzene(subs = {}){
 
     const ex = vx0 + dx * 22, ey = vy0 + dy * 22;
     s += svgLine(vx0, vy0, ex, ey);
-    const tx = ex + dx * 10, ty = ey + dy * 10;
+    const tx = ex + dx * 12, ty = ey + dy * 12;
     const anchor = dx > 0.3 ? 'start' : dx < -0.3 ? 'end' : 'middle';
     s += svgTxt(tx, ty, subText, { anchor });
   }
@@ -516,90 +631,21 @@ function benzene(subs = {}){
 }
 
 /* =====================================================================
-   ★ 苯环上的羰基类取代基（sp² 120° 骨架式）
-   ===================================================================== */
-function drawCarbonylSubst(x, y, dx, dy, type){
-  let s = '';
-
-  if (type === 'OCOCH₃'){
-    /* 环-O-C(=O)-CH₃ */
-    const O1x = x + dx * 18, O1y = y + dy * 18;
-    s += svgLine(x, y, O1x, O1y);
-    s += svgTxt(O1x + dx * 10, O1y + dy * 10, 'O', { size: 15 });
-
-    const [odx, ody] = rot(dx, dy, 60);
-    const Cx = O1x + odx * 20, Cy = O1y + ody * 20;
-    s += svgLine(O1x, O1y, Cx, Cy);
-
-    /* C=O 双键 */
-    const [d1x, d1y] = rot(odx, ody, 60);
-    const O2x = Cx + d1x * 20, O2y = Cy + d1y * 20;
-    s += svgLine(Cx, Cy, O2x, O2y, 2.4);
-    s += svgLine(Cx + odx * 2, Cy + ody * 2, O2x + odx * 2, O2y + ody * 2, 1.8);
-    s += svgTxt(O2x + d1x * 10, O2y + d1y * 10, 'O', { size: 15 });
-
-    /* C-CH₃ */
-    const [d2x, d2y] = rot(odx, ody, -60);
-    const C2x = Cx + d2x * 20, C2y = Cy + d2y * 20;
-    s += svgLine(Cx, Cy, C2x, C2y);
-    s += svgTxt(C2x + d2x * 12, C2y + d2y * 12, 'CH₃', { size: 13 });
-    return s;
-  }
-
-  /* 环-C(=O)-R 模式 */
-  const Cx = x + dx * 18, Cy = y + dy * 18;
-  s += svgLine(x, y, Cx, Cy);
-
-  /* C=O 双键：相对取代基方向旋转 -60°（右上） */
-  const [o1x, o1y] = rot(dx, dy, -60);
-  const Ox = Cx + o1x * 22, Oy = Cy + o1y * 22;
-  s += svgLine(Cx, Cy, Ox, Oy, 2.4);
-  s += svgLine(Cx + dx * 2.5, Cy + dy * 2.5, Ox + dx * 2.5, Oy + dy * 2.5, 1.8);
-  s += svgTxt(Ox + o1x * 10, Oy + o1y * 10, 'O', { size: 15 });
-
-  /* 另一个取代基：旋转 +60° */
-  const [o2x, o2y] = rot(dx, dy, 60);
-  const Rx = Cx + o2x * 22, Ry = Cy + o2y * 22;
-
-  if (type === 'COOH'){
-    s += svgLine(Cx, Cy, Rx, Ry);
-    s += svgTxt(Rx + o2x * 12, Ry + o2y * 12, 'OH', { size: 14 });
-  } else if (type === 'CHO'){
-    s += svgLine(Cx, Cy, Rx, Ry);
-    s += svgTxt(Rx + o2x * 12, Ry + o2y * 12, 'H', { size: 15 });
-  } else if (type === 'COCH₃'){
-    s += svgLine(Cx, Cy, Rx, Ry);
-    s += svgTxt(Rx + o2x * 12, Ry + o2y * 12, 'CH₃', { size: 13 });
-  } else if (type === 'COOCH₃' || type === 'COOC₂H₅'){
-    s += svgLine(Cx, Cy, Rx, Ry);
-    s += svgTxt(Rx + o2x * 10, Ry + o2y * 10, 'O', { size: 15 });
-
-    const [o3x, o3y] = rot(o2x, o2y, -60);
-    const R2x = Rx + o3x * 20, R2y = Ry + o3y * 20;
-    s += svgLine(Rx, Ry, R2x, R2y);
-    const label = type === 'COOCH₃' ? 'CH₃' : 'C₂H₅';
-    s += svgTxt(R2x + o3x * 12, R2y + o3y * 12, label, { size: 13 });
-  }
-  return s;
-}
-
-/* =====================================================================
-   ★ 萘环（正确共用垂直边，凯库勒式）
+   萘环（凯库勒式）
    ===================================================================== */
 function naphthalene(subs = {}){
-  const cx = 150, cy = 90, r = 24;
+  const cx = 170, cy = 90, r = 24;
   const s3 = Math.sqrt(3);
-  const rh = r / 2;             /* 共用边半长 */
-  const rw = r * s3 / 2;        /* 中心到共用边距离 */
+  const rh = r / 2;
+  const rw = r * s3 / 2;
 
-  /* 左环中心 (cx - rw, cy)，右环中心 (cx + rw, cy) */
-  const ST = [cx, cy - rh];       /* 上共用 */
-  const SB = [cx, cy + rh];       /* 下共用 */
-  const Lt = [cx - rw, cy - r];   /* 左上 */
-  const Llt = [cx - r * s3, cy - rh]; /* 最左-上 */
-  const Llb = [cx - r * s3, cy + rh]; /* 最左-下 */
-  const Lb = [cx - rw, cy + r];   /* 左下 */
-  const Rt = [cx + rw, cy - r];   /* 右上 */
+  const ST = [cx, cy - rh];
+  const SB = [cx, cy + rh];
+  const Lt = [cx - rw, cy - r];
+  const Llt = [cx - r * s3, cy - rh];
+  const Llb = [cx - r * s3, cy + rh];
+  const Lb = [cx - rw, cy + r];
+  const Rt = [cx + rw, cy - r];
   const Rrt = [cx + r * s3, cy - rh];
   const Rrb = [cx + r * s3, cy + rh];
   const Rb = [cx + rw, cy + r];
@@ -608,26 +654,22 @@ function naphthalene(subs = {}){
   const rightCtr = [cx + rw, cy];
 
   let s = '';
-
-  /* 左环 */
   s += svgDblTo(ST[0], ST[1], Lt[0], Lt[1], leftCtr[0], leftCtr[1], 4);
   s += svgLine(Lt[0], Lt[1], Llt[0], Llt[1]);
   s += svgDblTo(Llt[0], Llt[1], Llb[0], Llb[1], leftCtr[0], leftCtr[1], 4);
   s += svgLine(Llb[0], Llb[1], Lb[0], Lb[1]);
   s += svgDblTo(Lb[0], Lb[1], SB[0], SB[1], leftCtr[0], leftCtr[1], 4);
-  s += svgLine(SB[0], SB[1], ST[0], ST[1]);   /* 共用边单键 */
+  s += svgLine(SB[0], SB[1], ST[0], ST[1]);
 
-  /* 右环 */
   s += svgLine(ST[0], ST[1], Rt[0], Rt[1]);
   s += svgDblTo(Rt[0], Rt[1], Rrt[0], Rrt[1], rightCtr[0], rightCtr[1], 4);
   s += svgLine(Rrt[0], Rrt[1], Rrb[0], Rrb[1]);
   s += svgDblTo(Rrb[0], Rrb[1], Rb[0], Rb[1], rightCtr[0], rightCtr[1], 4);
   s += svgLine(Rb[0], Rb[1], SB[0], SB[1]);
 
-  /* 取代基 */
   const posMap = {
-    Lt:  { pos: Lt,  center: leftCtr  },   /* 1-萘酚（α） */
-    Llt: { pos: Llt, center: leftCtr  },   /* 2-萘酚（β） */
+    Lt:  { pos: Lt,  center: leftCtr  },
+    Llt: { pos: Llt, center: leftCtr  },
     Llb: { pos: Llb, center: leftCtr  },
     Lb:  { pos: Lb,  center: leftCtr  },
     Rt:  { pos: Rt,  center: rightCtr },
@@ -647,7 +689,7 @@ function naphthalene(subs = {}){
     dx /= len; dy /= len;
     const ex = vx0 + dx * 22, ey = vy0 + dy * 22;
     s += svgLine(vx0, vy0, ex, ey);
-    const tx = ex + dx * 10, ty = ey + dy * 10;
+    const tx = ex + dx * 12, ty = ey + dy * 12;
     const anchor = dx > 0.3 ? 'start' : dx < -0.3 ? 'end' : 'middle';
     s += svgTxt(tx, ty, subText, { anchor, size: 14 });
   }
@@ -658,7 +700,7 @@ function naphthalene(subs = {}){
    特定分子
    ===================================================================== */
 function isobutane(){
-  const cx = 150, cy = 95, r = 38;
+  const cx = 170, cy = 95, r = 38;
   let s = '';
   const targets = [
     [cx - r * 0.85, cy - r * 0.55],
@@ -677,7 +719,7 @@ function isobutane(){
 }
 
 function isobutylene(){
-  const c1x = 115, c2x = 165, cy = 90;
+  const c1x = 135, c2x = 185, cy = 90;
   let s = svgDbl(c1x, cy, c2x, cy);
   s += svgLine(c1x, cy, c1x - 28, cy - 20);
   s += svgLine(c1x, cy, c1x - 28, cy + 20);
@@ -691,27 +733,62 @@ function isobutylene(){
 }
 
 function butene2(cis){
-  const c1x = 120, c2x = 170, cy = 90;
+  const c1x = 135, c2x = 185, cy = 90;
   let s = svgDbl(c1x, cy, c2x, cy);
+  const bl = 24;
   if (cis){
-    s += svgLine(c1x, cy, c1x - 22, cy - 16);
-    s += svgLine(c1x, cy, c1x - 22, cy + 16);
-    s += svgTxt(c1x - 32, cy - 22, 'CH₃', { anchor: 'end' });
-    s += svgTxt(c1x - 32, cy + 22, 'H',   { anchor: 'end' });
-    s += svgLine(c2x, cy, c2x + 22, cy - 16);
-    s += svgLine(c2x, cy, c2x + 22, cy + 16);
-    s += svgTxt(c2x + 30, cy - 22, 'CH₃', { anchor: 'start' });
-    s += svgTxt(c2x + 30, cy + 22, 'H',   { anchor: 'start' });
+    s += svgLine(c1x, cy, c1x - 22, cy - bl);
+    s += svgLine(c1x, cy, c1x - 22, cy + bl);
+    s += svgTxt(c1x - 32, cy - bl - 4, 'CH₃', { anchor: 'end' });
+    s += svgTxt(c1x - 32, cy + bl + 4, 'H',   { anchor: 'end' });
+    s += svgLine(c2x, cy, c2x + 22, cy - bl);
+    s += svgLine(c2x, cy, c2x + 22, cy + bl);
+    s += svgTxt(c2x + 32, cy - bl - 4, 'CH₃', { anchor: 'start' });
+    s += svgTxt(c2x + 32, cy + bl + 4, 'H',   { anchor: 'start' });
+    s += svgTxt(170, cy + 60, 'cis', { size: 13, anchor: 'middle' });
   } else {
-    s += svgLine(c1x, cy, c1x - 22, cy - 16);
-    s += svgLine(c1x, cy, c1x - 22, cy + 16);
-    s += svgTxt(c1x - 32, cy - 22, 'CH₃', { anchor: 'end' });
-    s += svgTxt(c1x - 32, cy + 22, 'H',   { anchor: 'end' });
-    s += svgLine(c2x, cy, c2x + 22, cy - 16);
-    s += svgLine(c2x, cy, c2x + 22, cy + 16);
-    s += svgTxt(c2x + 30, cy - 22, 'H',   { anchor: 'start' });
-    s += svgTxt(c2x + 30, cy + 22, 'CH₃', { anchor: 'start' });
+    s += svgLine(c1x, cy, c1x - 22, cy - bl);
+    s += svgLine(c1x, cy, c1x - 22, cy + bl);
+    s += svgTxt(c1x - 32, cy - bl - 4, 'CH₃', { anchor: 'end' });
+    s += svgTxt(c1x - 32, cy + bl + 4, 'H',   { anchor: 'end' });
+    s += svgLine(c2x, cy, c2x + 22, cy - bl);
+    s += svgLine(c2x, cy, c2x + 22, cy + bl);
+    s += svgTxt(c2x + 32, cy - bl - 4, 'H',   { anchor: 'start' });
+    s += svgTxt(c2x + 32, cy + bl + 4, 'CH₃', { anchor: 'start' });
+    s += svgTxt(170, cy + 60, 'trans', { size: 13, anchor: 'middle' });
   }
+  return svgWrap(s);
+}
+
+function maleicAcid(){
+  const c1x = 135, c2x = 185, cy = 90;
+  let s = svgDbl(c1x, cy, c2x, cy);
+  const bl = 26;
+  s += svgLine(c1x, cy, c1x - 20, cy - bl);
+  s += svgLine(c1x, cy, c1x - 20, cy + bl);
+  s += svgTxt(c1x - 28, cy - bl - 4, 'COOH', { anchor: 'end', size: 13 });
+  s += svgTxt(c1x - 28, cy + bl + 4, 'H',   { anchor: 'end' });
+  s += svgLine(c2x, cy, c2x + 20, cy - bl);
+  s += svgLine(c2x, cy, c2x + 20, cy + bl);
+  s += svgTxt(c2x + 28, cy - bl - 4, 'COOH', { anchor: 'start', size: 13 });
+  s += svgTxt(c2x + 28, cy + bl + 4, 'H',   { anchor: 'start' });
+  s += svgTxt(170, cy + 62, 'cis', { size: 13, anchor: 'middle' });
+  return svgWrap(s);
+}
+
+function fumaricAcid(){
+  const c1x = 135, c2x = 185, cy = 90;
+  let s = svgDbl(c1x, cy, c2x, cy);
+  const bl = 26;
+  s += svgLine(c1x, cy, c1x - 20, cy - bl);
+  s += svgLine(c1x, cy, c1x - 20, cy + bl);
+  s += svgTxt(c1x - 28, cy - bl - 4, 'COOH', { anchor: 'end', size: 13 });
+  s += svgTxt(c1x - 28, cy + bl + 4, 'H',   { anchor: 'end' });
+  s += svgLine(c2x, cy, c2x + 20, cy - bl);
+  s += svgLine(c2x, cy, c2x + 20, cy + bl);
+  s += svgTxt(c2x + 28, cy - bl - 4, 'H',   { anchor: 'start' });
+  s += svgTxt(c2x + 28, cy + bl + 4, 'COOH', { anchor: 'start', size: 13 });
+  s += svgTxt(170, cy + 62, 'trans', { size: 13, anchor: 'middle' });
   return svgWrap(s);
 }
 
@@ -719,6 +796,8 @@ function butene2(cis){
    分子数据库
    ===================================================================== */
 const DB = [
+  /* ============ 脂肪族烃 ============ */
+  {jp:'メタン',cn:'甲烷',cat:'ali',g:'脂肪族烃',s:textFormula('CH₄')},
   {jp:'エタン',cn:'乙烷',cat:'ali',g:'脂肪族烃',s:zigzag(2)},
   {jp:'プロパン',cn:'丙烷',cat:'ali',g:'脂肪族烃',s:zigzag(3)},
   {jp:'ブタン',cn:'正丁烷',cat:'ali',g:'脂肪族烃',s:zigzag(4)},
@@ -738,6 +817,7 @@ const DB = [
   {jp:'シクロブタン',cn:'环丁烷',cat:'ali',g:'环烷烃',s:cycloRing(4)},
   {jp:'シクロペンタン',cn:'环戊烷',cat:'ali',g:'环烷烃',s:cycloRing(5)},
 
+  /* ============ 卤代烃 ============ */
   {jp:'クロロメタン',cn:'一氯甲烷',cat:'ali',g:'卤代烃',s:textFormula('CH₃Cl')},
   {jp:'ジクロロメタン',cn:'二氯甲烷',cat:'ali',g:'卤代烃',s:textFormula('CH₂Cl₂')},
   {jp:'クロロホルム',cn:'氯仿（三氯甲烷）',cat:'ali',g:'卤代烃',s:textFormula('CHCl₃')},
@@ -748,6 +828,7 @@ const DB = [
   {jp:'塩化ビニル',cn:'氯乙烯',cat:'ali',g:'卤代烃',s:zigzag(2,{doubleBond:0,subs:{0:{text:'Cl',dir:'downleft'}}})},
   {jp:'1,2-ジブロモエチレン',cn:'1,2-二溴乙烯',cat:'ali',g:'卤代烃',s:zigzag(2,{doubleBond:0,endLabels:false,subs:{0:{text:'Br',dir:'downleft'},1:{text:'Br',dir:'upright'}}})},
 
+  /* ============ 醇 ============ */
   {jp:'メタノール',cn:'甲醇',cat:'ali',g:'醇',s:textFormula('CH₃—OH')},
   {jp:'エタノール',cn:'乙醇',cat:'ali',g:'醇',s:zigzag(2,{subs:{1:{text:'OH',dir:'upright'}}})},
   {jp:'エチレングリコール',cn:'乙二醇',cat:'ali',g:'醇',s:textFormula('HO—CH₂—CH₂—OH')},
@@ -757,25 +838,33 @@ const DB = [
   {jp:'1-ブタノール',cn:'1-丁醇',cat:'ali',g:'醇',s:zigzag(4,{subs:{3:{text:'OH',dir:'upright'}}})},
   {jp:'2-メチル-2-プロパノール',cn:'2-甲基-2-丙醇',cat:'ali',g:'醇',s:textFormula('(CH₃)₃C—OH')},
 
+  /* ============ 醇盐 ============ */
+  {jp:'ナトリウムエトキシド',cn:'乙醇钠',cat:'ali',g:'醇盐',s:textFormula('C₂H₅ONa')},
+  {jp:'ナトリウムメトキシド',cn:'甲醇钠',cat:'ali',g:'醇盐',s:textFormula('CH₃ONa')},
+
+  /* ============ 醚 ============ */
   {jp:'ジメチルエーテル',cn:'甲醚',cat:'ali',g:'醚',s:textFormula('CH₃—O—CH₃')},
   {jp:'ジエチルエーテル',cn:'乙醚',cat:'ali',g:'醚',s:textFormula('C₂H₅—O—C₂H₅')},
   {jp:'エチルメチルエーテル',cn:'甲乙醚',cat:'ali',g:'醚',s:textFormula('CH₃—O—C₂H₅')},
 
+  /* ============ 醛 ============ */
   {jp:'ホルムアルデヒド',cn:'甲醛',cat:'ali',g:'醛',s:textFormula('H—CHO')},
   {jp:'アセトアルデヒド',cn:'乙醛',cat:'ali',g:'醛',s:textFormula('CH₃—CHO')},
   {jp:'プロピオンアルデヒド',cn:'丙醛',cat:'ali',g:'醛',s:textFormula('CH₃CH₂—CHO')},
 
+  /* ============ 酮 ============ */
   {jp:'アセトン',cn:'丙酮',cat:'ali',g:'酮',s:textFormula('CH₃—CO—CH₃')},
   {jp:'エチルメチルケトン',cn:'甲基乙基酮',cat:'ali',g:'酮',s:textFormula('CH₃—CO—C₂H₅')},
   {jp:'ジエチルケトン',cn:'3-戊酮',cat:'ali',g:'酮',s:textFormula('C₂H₅—CO—C₂H₅')},
 
+  /* ============ 羧酸 ============ */
   {jp:'ギ酸',cn:'甲酸',cat:'ali',g:'羧酸',s:textFormula('H—COOH')},
   {jp:'酢酸',cn:'乙酸（醋酸）',cat:'ali',g:'羧酸',s:textFormula('CH₃—COOH')},
   {jp:'プロピオン酸',cn:'丙酸',cat:'ali',g:'羧酸',s:textFormula('CH₃CH₂—COOH')},
   {jp:'酪酸',cn:'丁酸',cat:'ali',g:'羧酸',s:textFormula('CH₃CH₂CH₂—COOH')},
   {jp:'シュウ酸',cn:'草酸',cat:'ali',g:'羧酸',s:textFormula('HOOC—COOH')},
-  {jp:'マレイン酸',cn:'马来酸（顺丁烯二酸）',cat:'ali',g:'羧酸',s:textFormula('HOOC—CH=CH—COOH')},
-  {jp:'フマル酸',cn:'富马酸（反丁烯二酸）',cat:'ali',g:'羧酸',s:textFormula('HOOC—CH=CH—COOH')},
+  {jp:'マレイン酸',cn:'马来酸（顺丁烯二酸）',cat:'ali',g:'羧酸',s:maleicAcid()},
+  {jp:'フマル酸',cn:'富马酸（反丁烯二酸）',cat:'ali',g:'羧酸',s:fumaricAcid()},
   {jp:'乳酸',cn:'乳酸',cat:'ali',g:'羧酸',s:textFormula('CH₃—CH(OH)—COOH')},
   {jp:'コハク酸',cn:'琥珀酸',cat:'ali',g:'羧酸',s:textFormula('HOOC—CH₂CH₂—COOH')},
   {jp:'リンゴ酸',cn:'苹果酸',cat:'ali',g:'羧酸',s:textFormula('HOOC—CH(OH)CH₂—COOH')},
@@ -787,12 +876,16 @@ const DB = [
   {jp:'ステアリン酸',cn:'硬脂酸',cat:'ali',g:'羧酸',s:textFormula('CH₃(CH₂)₁₆COOH')},
   {jp:'オレイン酸',cn:'油酸',cat:'ali',g:'羧酸',s:textFormula('CH₃(CH₂)₇CH=CH(CH₂)₇COOH')},
 
+  /* ============ 酸酐 ============ */
   {jp:'無水酢酸',cn:'乙酸酐',cat:'ali',g:'酸酐',s:textFormula('(CH₃CO)₂O')},
+  {jp:'無水マレイン酸',cn:'马来酸酐',cat:'ali',g:'酸酐',s:textFormula('C₄H₂O₃')},
 
+  /* ============ 酯 ============ */
   {jp:'酢酸エチル',cn:'乙酸乙酯',cat:'ali',g:'酯',s:textFormula('CH₃COO—C₂H₅')},
   {jp:'ギ酸メチル',cn:'甲酸甲酯',cat:'ali',g:'酯',s:textFormula('H—COO—CH₃')},
   {jp:'酢酸ビニル',cn:'乙酸乙烯酯',cat:'ali',g:'酯',s:textFormula('CH₃COO—CH=CH₂')},
 
+  /* ============ 芳香族 ============ */
   {jp:'ベンゼン',cn:'苯',cat:'aro',g:'芳香族烃',s:benzene()},
   {jp:'トルエン',cn:'甲苯',cat:'aro',g:'芳香族烃',s:benzene({R:'CH₃'})},
   {jp:'エチルベンゼン',cn:'乙苯',cat:'aro',g:'芳香族烃',s:benzene({R:'C₂H₅'})},
@@ -804,10 +897,13 @@ const DB = [
   {jp:'ニトロベンゼン',cn:'硝基苯',cat:'aro',g:'芳香族',s:benzene({R:'NO₂'})},
   {jp:'ベンゼンスルホン酸',cn:'苯磺酸',cat:'aro',g:'芳香族',s:benzene({R:'SO₃H'})},
   {jp:'クロロベンゼン',cn:'氯苯',cat:'aro',g:'芳香族',s:benzene({R:'Cl'})},
+  {jp:'1,2,3,4,5,6-ヘキサクロロシクロヘキサン',cn:'六氯环己烷',cat:'aro',g:'芳香族',s:textFormula('C₆H₆Cl₆')},
   {jp:'ベンズアルデヒド',cn:'苯甲醛',cat:'aro',g:'芳香族',s:benzene({R:'CHO'})},
   {jp:'ベンジルアルコール',cn:'苯甲醇',cat:'aro',g:'芳香族',s:benzene({R:'CH₂OH'})},
   {jp:'フェノール',cn:'苯酚',cat:'aro',g:'酚类',s:benzene({R:'OH'})},
   {jp:'o-クレゾール',cn:'邻甲酚',cat:'aro',g:'酚类',s:benzene({R:'OH',TR:'CH₃'})},
+  {jp:'m-クレゾール',cn:'间甲酚',cat:'aro',g:'酚类',s:benzene({R:'OH',TL:'CH₃'})},
+  {jp:'p-クレゾール',cn:'对甲酚',cat:'aro',g:'酚类',s:benzene({R:'OH',L:'CH₃'})},
   {jp:'ナトリウムフェノキシド',cn:'苯酚钠',cat:'aro',g:'酚类',s:benzene({R:'ONa'})},
   {jp:'2,4,6-トリブロモフェノール',cn:'2,4,6-三溴苯酚',cat:'aro',g:'酚类',s:benzene({R:'OH',TR:'Br',L:'Br',BR:'Br'})},
   {jp:'ビクリン酸',cn:'苦味酸',cat:'aro',g:'酚类',s:benzene({R:'OH',TR:'NO₂',L:'NO₂',BR:'NO₂'})},
@@ -821,6 +917,7 @@ const DB = [
   {jp:'テレフタル酸',cn:'对苯二甲酸',cat:'aro',g:'芳香族羧酸',s:benzene({R:'COOH',L:'COOH'})},
   {jp:'サリチル酸',cn:'水杨酸',cat:'aro',g:'芳香族羧酸',s:benzene({R:'COOH',TR:'OH'})},
   {jp:'アセチルサリチル酸',cn:'乙酰水杨酸（阿司匹林）',cat:'aro',g:'芳香族羧酸',s:benzene({R:'COOH',TR:'OCOCH₃'})},
+  {jp:'無水フタル酸',cn:'邻苯二甲酸酐',cat:'aro',g:'芳香族羧酸相关物',s:textFormula('C₈H₄O₃')},
   {jp:'アニリン',cn:'苯胺',cat:'aro',g:'芳香族胺',s:benzene({R:'NH₂'})},
   {jp:'アニリン塩酸塩',cn:'盐酸苯胺',cat:'aro',g:'芳香族胺',s:benzene({R:'NH₃⁺Cl⁻'})},
   {jp:'アセトアニリド',cn:'乙酰苯胺',cat:'aro',g:'芳香族胺',s:benzene({R:'NHCOCH₃'})},
@@ -830,6 +927,7 @@ const DB = [
   {jp:'1-ナフトール',cn:'1-萘酚（α-萘酚）',cat:'aro',g:'萘衍生物',s:naphthalene({Lt:'OH'})},
   {jp:'2-ナフトール',cn:'2-萘酚（β-萘酚）',cat:'aro',g:'萘衍生物',s:naphthalene({Llt:'OH'})},
 
+  /* ============ 高分子 ============ */
   {jp:'ポリエチレン',cn:'聚乙烯',cat:'poly',g:'合成高分子',s:textFormula('—(CH₂—CH₂)ₙ—')},
   {jp:'ポリプロピレン',cn:'聚丙烯',cat:'poly',g:'合成高分子',s:textFormula('—(CH₂—CH(CH₃))ₙ—')},
   {jp:'ポリスチレン',cn:'聚苯乙烯',cat:'poly',g:'合成高分子',s:textFormula('—(CH₂—CH(C₆H₅))ₙ—')},
@@ -848,18 +946,55 @@ const DB = [
 ];
 
 /* =====================================================================
+   基础单词集合（图片范围）
+   ===================================================================== */
+const BASIC_JP = new Set([
+  'メタン','エタン','プロパン',
+  'エチレン','プロペン',
+  'アセチレン',
+  'シクロヘキサン',
+  'クロロメタン','ジクロロメタン','クロロホルム','四塩化炭素',
+  'メタノール','エタノール','エチレングリコール','グリセリン',
+  'ナトリウムエトキシド','ナトリウムメトキシド',
+  'ジエチルエーテル','ジメチルエーテル',
+  'ホルムアルデヒド','アセトアルデヒド','アセトン',
+  'ギ酸','酢酸','フマル酸','マレイン酸','シュウ酸','乳酸',
+  '無水酢酸','無水マレイン酸',
+  '酢酸エチル','ギ酸メチル',
+  'ベンゼン','トルエン','エチルベンゼン',
+  'o-キシレン','m-キシレン','p-キシレン',
+  'ニトロベンゼン','ベンゼンスルホン酸','クロロベンゼン',
+  '1,2,3,4,5,6-ヘキサクロロシクロヘキサン',
+  'ベンズアルデヒド','ベンジルアルコール',
+  'フェノール','o-クレゾール','m-クレゾール','p-クレゾール',
+  'ナトリウムフェノキシド','2,4,6-トリブロモフェノール',
+  '酢酸フェニル','クメン',
+  '安息香酸','o-フタル酸','サリチル酸',
+  '安息香酸エチル','アセチルサリチル酸','サリチル酸メチル','無水フタル酸',
+  'アニリン','アニリン塩酸塩','アセトアニリド'
+]);
+
+DB.forEach((m, i) => {
+  m.idx = i;
+  m.level = BASIC_JP.has(m.jp) ? 'basic' : 'advanced';
+});
+
+/* =====================================================================
    状态
    ===================================================================== */
-const TOTAL_Q = 10;
-const PASS = 7;
+let TOTAL_Q = 10;
+let PASS = 7;
 let quiz = [];
 let curIdx = 0;
 let score = 0;
 let answered = false;
 let wrongList = [];
+let currentPool = DB;
+let browseMode = 'view';
 
 const $ = id => document.getElementById(id);
 const CIRC = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳';
+let selectedIndices = new Set();
 
 function shuffle(a){
   a = a.slice();
@@ -875,7 +1010,7 @@ function pick(arr, n, exclude){
 }
 
 /* =====================================================================
-   浏览模式
+   浏览页渲染
    ===================================================================== */
 function renderBrowse(){
   const groups = {};
@@ -885,58 +1020,150 @@ function renderBrowse(){
     groups[g].push(m);
   }
 
+  const isSelect = browseMode === 'select';
+  $('browseTitle').innerHTML = isSelect
+    ? '🎯 範囲を選ぶ<small id="browseCount">全 0 分子</small>'
+    : '📖 分子カタログ<small id="browseCount">全 0 分子</small>';
+
+  $('browseTools').innerHTML = isSelect
+    ? `<button class="btn-sm" id="selectAllBtn">全選択</button>
+       <button class="btn-sm gray" id="deselectAllBtn">全解除</button>`
+    : '';
+
   let html = '';
   for (const [gName, list] of Object.entries(groups)){
-    html += `<div class="browse-section">
-      <h3>📁 ${gName} <span style="color:#94a3b8;font-weight:600;font-size:12px;">(${list.length})</span></h3>
+    const groupIds = list.map(m => m.idx);
+    const allChecked = isSelect && groupIds.every(id => selectedIndices.has(id));
+    html += `<div class="browse-section" data-group="${gName}">
+      <h3>📁 ${gName} <span style="color:#94a3b8;font-weight:600;font-size:12px;">(${list.length})</span>
+        ${isSelect ? `<label><input type="checkbox" class="group-check" data-group="${gName}" ${allChecked ? 'checked' : ''}> 全選択</label>` : ''}
+      </h3>
       <div class="browse-grid">`;
     for (const m of list){
-      html += `<div class="browse-card">
+      const checked = isSelect && selectedIndices.has(m.idx);
+      const basicTag = m.level === 'basic'
+        ? '<span style="display:inline-block;background:#dbeafe;color:#1e40af;font-size:10px;padding:1px 6px;border-radius:6px;margin-left:4px;">基礎</span>'
+        : '';
+      html += `<div class="browse-card ${checked ? 'selected' : ''}" data-idx="${m.idx}">
+        ${isSelect ? `<input type="checkbox" class="b-check" data-idx="${m.idx}" ${checked ? 'checked' : ''}>` : ''}
         <div class="b-svg">${m.s}</div>
-        <div class="b-jp">${m.jp}</div>
+        <div class="b-jp">${m.jp}${basicTag}</div>
         <div class="b-cn">${m.cn}</div>
       </div>`;
     }
     html += `</div></div>`;
   }
-  html += `<div class="browse-actions">
-    <button class="btn" id="browseStartBtn">▶ 特訓スタート</button>
-  </div>`;
+
+  if (isSelect){
+    html += `<div class="browse-actions">
+      <button class="btn" id="browseStartBtn">✅ 選択した範囲で特訓スタート（<span id="selCount">${selectedIndices.size}</span> 分子）</button>
+    </div>`;
+  } else {
+    html += `<div class="browse-actions">
+      <button class="btn" id="browseStartAllBtn">▶ 全部単語で特訓スタート</button>
+    </div>`;
+  }
 
   $('browseCard').innerHTML = html;
-  $('browseCount').textContent = `全 ${DB.length} 分子`;
+  const bc = $('browseCount');
+  if (bc) bc.textContent = `全 ${DB.length} 分子`;
 
-  $('browseStartBtn').addEventListener('click', startQuiz);
+  if (isSelect){
+    document.querySelectorAll('.b-check').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        const idx = parseInt(e.target.dataset.idx);
+        const card = e.target.closest('.browse-card');
+        if (e.target.checked){
+          selectedIndices.add(idx);
+          card.classList.add('selected');
+        } else {
+          selectedIndices.delete(idx);
+          card.classList.remove('selected');
+        }
+        $('selCount').textContent = selectedIndices.size;
+        const groupName = card.closest('.browse-section').dataset.group;
+        const groupCb = document.querySelector(`.group-check[data-group="${groupName}"]`);
+        if (groupCb){
+          const groupCards = card.closest('.browse-grid').querySelectorAll('.b-check');
+          const all = Array.from(groupCards).every(c => c.checked);
+          groupCb.checked = all;
+        }
+      });
+    });
+
+    document.querySelectorAll('.group-check').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        const groupName = e.target.dataset.group;
+        const section = document.querySelector(`.browse-section[data-group="${groupName}"]`);
+        const cards = section.querySelectorAll('.browse-card');
+        cards.forEach(card => {
+          const idx = parseInt(card.dataset.idx);
+          const check = card.querySelector('.b-check');
+          check.checked = e.target.checked;
+          if (e.target.checked){
+            selectedIndices.add(idx);
+            card.classList.add('selected');
+          } else {
+            selectedIndices.delete(idx);
+            card.classList.remove('selected');
+          }
+        });
+        $('selCount').textContent = selectedIndices.size;
+      });
+    });
+
+    $('browseStartBtn').addEventListener('click', () => {
+      if (selectedIndices.size === 0){
+        alert('少なくとも 1 つの分子を選択してください。');
+        return;
+      }
+      const pool = DB.filter(m => selectedIndices.has(m.idx));
+      startQuizFromPool(pool);
+    });
+
+    const selAll = $('selectAllBtn');
+    const deselAll = $('deselectAllBtn');
+    if (selAll) selAll.addEventListener('click', () => {
+      DB.forEach(m => selectedIndices.add(m.idx));
+      renderBrowse();
+    });
+    if (deselAll) deselAll.addEventListener('click', () => {
+      selectedIndices.clear();
+      renderBrowse();
+    });
+  } else {
+    $('browseStartAllBtn').addEventListener('click', () => startQuizFromPool(DB));
+  }
 }
 
 /* =====================================================================
    出题
    ===================================================================== */
-function buildQuiz(){
-  const pool = shuffle(DB).slice(0, TOTAL_Q);
-  return pool.map(mol => {
+function buildQuiz(pool, totalQ){
+  const shuffledPool = shuffle(pool).slice(0, totalQ);
+  return shuffledPool.map(mol => {
     const r = Math.random();
-    if (r < 0.62) return makeNameQuestion(mol);
-    return makeStructQuestion(mol);
+    if (r < 0.62) return makeNameQuestion(mol, pool);
+    return makeStructQuestion(mol, pool);
   });
 }
 
-function makeNameQuestion(mol){
-  const same = DB.filter(x => x.cat === mol.cat && x.jp !== mol.jp);
-  const others = pick(same.length >= 3 ? same : DB.filter(x => x.jp !== mol.jp), 3, [mol]);
+function makeNameQuestion(mol, pool){
+  const same = pool.filter(x => x.cat === mol.cat && x.jp !== mol.jp);
+  const others = pick(same.length >= 3 ? same : pool.filter(x => x.jp !== mol.jp), 3, [mol]);
   const opts = shuffle([mol, ...others]);
   return { type: 'name', mol, opts, ans: opts.indexOf(mol) };
 }
 
-function makeStructQuestion(mol){
-  const same = DB.filter(x => x.cat === mol.cat && x.jp !== mol.jp);
-  const others = pick(same.length >= 7 ? same : DB.filter(x => x.jp !== mol.jp), 7, [mol]);
+function makeStructQuestion(mol, pool){
+  const same = pool.filter(x => x.cat === mol.cat && x.jp !== mol.jp);
+  const others = pick(same.length >= 7 ? same : pool.filter(x => x.jp !== mol.jp), 7, [mol]);
   const opts = shuffle([mol, ...others]);
   return { type: 'struct', mol, opts, ans: opts.indexOf(mol) };
 }
 
 /* =====================================================================
-   渲染
+   视图
    ===================================================================== */
 function showView(v){
   document.querySelectorAll('.view').forEach(e => e.classList.remove('active'));
@@ -1125,10 +1352,14 @@ function showResult(){
     </div>`;
   }
 
-  html += `<button class="again" id="againBtn">🔄 もう一度挑戦</button></div>`;
+  html += `<div class="again-row">
+    <button class="again" id="againBtn">🔄 もう一度挑戦</button>
+    <button class="again home" id="homeBtn">🏠 ホームに戻る</button>
+  </div></div>`;
 
   $('resultCard').innerHTML = html;
-  $('againBtn').addEventListener('click', startQuiz);
+  $('againBtn').addEventListener('click', () => startQuizFromPool(currentPool));
+  $('homeBtn').addEventListener('click', () => showView('start'));
 
   showView('result');
 
@@ -1181,8 +1412,11 @@ function confetti(){
 /* =====================================================================
    启动
    ===================================================================== */
-function startQuiz(){
-  quiz = buildQuiz();
+function startQuizFromPool(pool){
+  currentPool = pool;
+  TOTAL_Q = Math.min(10, pool.length);
+  PASS = Math.ceil(TOTAL_Q * 0.7);
+  quiz = buildQuiz(pool, TOTAL_Q);
   curIdx = 0;
   score = 0;
   wrongList = [];
@@ -1191,13 +1425,32 @@ function startQuiz(){
   renderQuestion();
 }
 
-function startBrowse(){
+function startAll(){
+  startQuizFromPool(DB);
+}
+
+function startBasic(){
+  const basicPool = DB.filter(m => m.level === 'basic');
+  startQuizFromPool(basicPool);
+}
+
+function enterBrowseView(){
+  browseMode = 'view';
   renderBrowse();
   showView('browse');
 }
 
-$('startBtn').addEventListener('click', startQuiz);
-$('browseBtn').addEventListener('click', startBrowse);
+function enterBrowseSelect(){
+  browseMode = 'select';
+  selectedIndices.clear();
+  renderBrowse();
+  showView('browse');
+}
+
+$('startAllBtn').addEventListener('click', startAll);
+$('startBasicBtn').addEventListener('click', startBasic);
+$('selectRangeBtn').addEventListener('click', enterBrowseSelect);
+$('browseBtn').addEventListener('click', enterBrowseView);
 $('browseBackBtn').addEventListener('click', () => showView('start'));
 $('backBtn').addEventListener('click', () => showView('start'));
 
@@ -1219,6 +1472,7 @@ document.addEventListener('keydown', e => {
 });
 
 $('dbCount').textContent = DB.length;
+$('basicCount').textContent = DB.filter(m => m.level === 'basic').length;
 </script>
 </body>
 </html>
